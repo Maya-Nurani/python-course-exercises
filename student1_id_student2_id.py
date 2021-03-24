@@ -39,8 +39,7 @@ class Rectangle:
         return str(self.width) + "," + str(self.height) + ", " + str(self.start_position)
 
     def get_area(self):
-
-        return 1
+        return self.height * self.width
 
     def get_diag_length(self):
         diag_point = Point(self.x + self.width, self.y - self.height)
@@ -50,6 +49,7 @@ class Rectangle:
 
 obj = Rectangle(1,2, 5,6,)
 print('This is Rectangle data:', obj)
+print(Rectangle.get_area(obj))
 
 
 '''
