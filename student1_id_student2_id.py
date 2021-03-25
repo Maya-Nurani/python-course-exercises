@@ -1,6 +1,3 @@
-import math
-
-
 class Point:
     def __init__(self, x=0, y=0):
         self.x = x
@@ -40,11 +37,11 @@ class Rectangle:
 
     def get_diag_length(self):
         diag_point = Point(self.x + self.width, self.y - self.height)
-        # distance =
+        # distance = # according to distance between points formula
 
-        return 0  # according to distance between points formula
+        return 0  # distance
 
 
-first_rectangle = Rectangle(1, 2, 5, 6, )
+first_rectangle = Rectangle(1, 2, 5, 6)
 print('This is Rectangle data:', first_rectangle)
 print(Rectangle.get_area(first_rectangle))
