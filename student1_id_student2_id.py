@@ -1,3 +1,5 @@
+import random
+
 class Point:
     def __init__(self, x=0, y=0):
         self.x = x
@@ -86,5 +88,17 @@ print(myTriangle.height)
 print(myTriangle.get_area())
 print(myTriangle.get_circumence())
 
+triangleList = []
+rectangleList = []
+
+#randomizing triangles and rectangles and adding them to lists
+for i in range(0,5):
+    randPoint1 = Point(random.randint(1,9),random.randint(1,9))
+    randPoint2 = Point(random.randint(1,9), random.randint(1,9))
+    randPoint3 = Point(random.randint(1,9), random.randint(1,9))
+    newTriangle = Triangle(randPoint1, randPoint2, randPoint3)
+    newRectangle = Rectangle(randPoint1.x, randPoint1.y, random.randint(1,9), random.randint(1,9))
+    triangleList.append(newTriangle)
+    rectangleList.append(newRectangle)
 
 
