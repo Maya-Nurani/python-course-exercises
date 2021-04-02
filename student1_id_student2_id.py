@@ -52,7 +52,7 @@ class Rectangle:
         diag_point = Point(self.start_position.x + self.width, self.start_position.y - self.height)
         right_point = Point(self.start_position.x + self.width, self.start_position.y)
         left_point = Point(self.start_position.x, self.start_position.y - self.height)
-        return [right_point, diag_point, left_point]
+        return [self.start_position, right_point, diag_point, left_point]
 
     def add_value_height(self, value):
         self.height = self.height + value
@@ -65,7 +65,11 @@ first_rectangle = Rectangle(0, 2, 2, 2)
 print(first_rectangle)
 print("Area of first rectangle =", first_rectangle.get_area())
 print("Diag length of first rectangle =", first_rectangle.get_diag_length())
-#print("Border points of first rectangle =", first_rectangle.get_border_points())
+print("Border points of first rectangle:")
+for point in first_rectangle.get_border_points():
+    print(point)
+first_rectangle.add_value_height(10)
+first_rectangle.add_value_width(4)
 
 
 # --------------------------
