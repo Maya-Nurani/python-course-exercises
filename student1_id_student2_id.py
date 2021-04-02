@@ -15,7 +15,7 @@ class Point:
         self.y += y
 
     def get_dist(self, x2, y2):
-        distance = (((self.x-x2)**2+(self.y-y2)**2)**0.5)
+        distance = (((self.x - x2) ** 2 + (self.y - y2) ** 2) ** 0.5)
         return distance
 
 
@@ -45,14 +45,20 @@ class Rectangle:
         return self.height * self.width
 
     def get_diag_length(self):
-        diag_point = Point(self.start_position.x + self.width, self.start_position.y + self.height)
+        diag_point = Point(self.start_position.x + self.width, self.start_position.y - self.height)
         return self.start_position.get_dist(diag_point.x, diag_point.y)
 
+    def get_border_points(self):
+        diag_point = Point(self.start_position.x + self.width, self.start_position.y - self.height)
+        right_point = Point(self.start_position.x + self.width, self.start_position.y)
+        left_point = Point(self.start_position.x, self.start_position.y - self.height)
+        return [right_point, diag_point, left_point]
 
-first_rectangle = Rectangle(1, 2, 5, 6)
+
+first_rectangle = Rectangle(0, 2, 2, 2)
 print(first_rectangle)
-print(first_rectangle.get_area())
-print(first_rectangle.get_diag_length())
+print("Area of first rectangle =", first_rectangle.get_area())
+print("Diag length of first rectangle =", first_rectangle.get_diag_length())
 
 
 # --------------------------
@@ -63,26 +69,25 @@ class Triangle:
         self.basePoint2 = point3
 
     def __str__(self):
-        return str("First point is:"+self.topPoint.__str__()+" Second point is:"+self.basePoint1.__str__()
-                   + " Third point is:"+self.basePoint2.__str__())
+        return str("First point is:" + self.topPoint.__str__() + " Second point is:" + self.basePoint1.__str__()
+                   + " Third point is:" + self.basePoint2.__str__())
 
     def get_vertices(self):
         l1 = [self.topPoint.__str__(), self.basePoint1.__str__(), self.basePoint2.__str__()]
         return l1
 
     def get_area(self):
-        area = 0.5*abs(self.topPoint.x*(self.basePoint1.y-self.basePoint2.y)
-                    +self.basePoint1.x*(self.basePoint2.y-self.topPoint.y)+
-                    self.basePoint2.x*(self.topPoint.y-self.basePoint1.y))
+        area = 0.5 * abs(self.topPoint.x * (self.basePoint1.y - self.basePoint2.y)
+                         + self.basePoint1.x * (self.basePoint2.y - self.topPoint.y) +
+                         self.basePoint2.x * (self.topPoint.y - self.basePoint1.y))
         return area
         # A = 0.5*[(x1(y2-y3)+x2(y3-y1)+x3(y1-y2)] equation for triangle's area calculation in XY pane
-
 
     def get_circumence(self):
         side1 = self.topPoint.get_dist(self.basePoint1.x, self.basePoint1.y)
         side2 = self.topPoint.get_dist(self.basePoint2.x, self.basePoint2.y)
         side3 = self.basePoint1.get_dist(self.basePoint2.x, self.basePoint2.y)
-        return side1+side2+side3
+        return side1 + side2 + side3
 
 
 myTriangle = Triangle(p1, p2, p3)
@@ -94,12 +99,21 @@ print(myTriangle.get_circumence())
 triangleList = []
 rectangleList = []
 
+
+# Generic function for random number
+def random_num():
+    return random.randint(1, 9)
+
+
 # creates random triangles and rectangles and adds them to lists
 for i in range(0, 5):
-    randPoint1 = Point(random.randint(1, 9), random.randint(1, 9))
-    randPoint2 = Point(random.randint(1, 9), random.randint(1, 9))
-    randPoint3 = Point(random.randint(1, 9), random.randint(1, 9))
+    randPoint1 = Point(random_num(), random_num())
+    randPoint2 = Point(random_num(), random_num())
+    randPoint3 = Point(random_num(), random_num())
     newTriangle = Triangle(randPoint1, randPoint2, randPoint3)
-    newRectangle = Rectangle(randPoint1.x, randPoint1.y, random.randint(1, 9), random.randint(1, 9))
+    newRectangle = Rectangle(randPoint1.x, randPoint1.y, random_num(), random.randint(1, 9))
     triangleList.append(newTriangle)
     rectangleList.append(newRectangle)
+
+print(rectangleList[0])
+print(triangleList[0])
