@@ -54,6 +54,12 @@ class Rectangle:
         left_point = Point(self.start_position.x, self.start_position.y - self.height)
         return [right_point, diag_point, left_point]
 
+    def add_value_height(self, value):
+        self.height = self.height + value
+
+    def add_value_width(self, value):
+        self.width = self.width + value
+
 
 first_rectangle = Rectangle(0, 2, 2, 2)
 print(first_rectangle)
