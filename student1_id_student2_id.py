@@ -61,8 +61,6 @@ class Triangle:
         self.topPoint = point1
         self.basePoint1 = point2
         self.basePoint2 = point3
-        self.baseLength = point2.get_dist(point3.x, point3.y)
-        self.height = abs(int(point1.y-point2.y))  # abs returns absolute value of a number
 
     def __str__(self):
         return str("First point is:"+self.topPoint.__str__()+" Second point is:"+self.basePoint1.__str__()
@@ -73,20 +71,23 @@ class Triangle:
         return l1
 
     def get_area(self):
-        area = (self.height*self.baseLength)/2
+        area = 0.5*abs(self.topPoint.x*(self.basePoint1.y-self.basePoint2.y)
+                    +self.basePoint1.x*(self.basePoint2.y-self.topPoint.y)+
+                    self.basePoint2.x*(self.topPoint.y-self.basePoint1.y))
         return area
+        # A = 0.5*[(x1(y2-y3)+x2(y3-y1)+x3(y1-y2)] equation for triangle's area calculation in XY pane
+
 
     def get_circumence(self):
         side1 = self.topPoint.get_dist(self.basePoint1.x, self.basePoint1.y)
         side2 = self.topPoint.get_dist(self.basePoint2.x, self.basePoint2.y)
-        return side1+side2+self.baseLength
+        side3 = self.basePoint1.get_dist(self.basePoint2.x, self.basePoint2.y)
+        return side1+side2+side3
 
 
 myTriangle = Triangle(p1, p2, p3)
 print(myTriangle)
 print(myTriangle.get_vertices())
-print(myTriangle.baseLength)
-print(myTriangle.height)
 print(myTriangle.get_area())
 print(myTriangle.get_circumence())
 
