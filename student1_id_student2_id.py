@@ -149,17 +149,34 @@ print(rectangleList)
 print(triangleList)
 print(formList)
 
-#TODO: print "before" will be remove before submition the code
+# TODO: print "before" will be remove before submit the code
 print("before sort")
 for i in formList:
     print(i.get_area())
 
-#TODO : send the list to both type of sorting
+# TODO : send the list to both type of sorting?
 
-#formList = sort_objects(formList)
+# formList = sort_objects(formList)
 formList = bubble_sort_objects(formList)
 
 print("after sort")
 # prints all forms areas
+for i in range(len(formList)):
+    print(formList[i].get_area())
+
+
+def add_rectangle(x, y, width, height):
+    newRectangle = Rectangle(x, y, width, height)
+    area = newRectangle.get_area()
+    print("The area of the new Rectangle", area)
+    # Adding the Rectangle to formList
+    formList.append(newRectangle)
+
+
+# sort the list (by area) after adding new rectangle
+formList = bubble_sort_objects(formList)
+add_rectangle(random_point().x, random_point().y, random_num(), random_num())
+
+print("print list (by area) after adding new Rectangle")
 for i in range(len(formList)):
     print(formList[i].get_area())
