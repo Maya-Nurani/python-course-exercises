@@ -118,6 +118,14 @@ def sort_objects(inputList):
     return inputList
 
 
+def bubble_sort_objects(inputList):
+    for n in range(len(inputList)):
+        for index in range(len(inputList) - n - 1):
+            if inputList[index].get_area() > inputList[index + 1].get_area():
+                inputList[index], inputList[index + 1] = inputList[index + 1], inputList[index]
+    return inputList
+
+
 # function for random number
 def random_num():
     return random.randint(0, 9)
@@ -140,8 +148,18 @@ for i in range(0, 5):
 print(rectangleList)
 print(triangleList)
 print(formList)
-formList = sort_objects(formList)
 
+#TODO: print "before" will be remove before submition the code
+print("before sort")
+for i in formList:
+    print(i.get_area())
+
+#TODO : send the list to both type of sorting
+
+#formList = sort_objects(formList)
+formList = bubble_sort_objects(formList)
+
+print("after sort")
 # prints all forms areas
 for i in range(len(formList)):
     print(formList[i].get_area())
