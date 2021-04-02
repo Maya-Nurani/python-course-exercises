@@ -107,27 +107,31 @@ rectangleList = []
 formList = []
 
 
-# Generic function for random number
-def random_num():
-    return random.randint(1, 9)
-
 # bubble sorting forms by area
 def sort_objects(inputList):
     for i in range(len(inputList)):
         min = i
-        for j in range(i+1, len(inputList)):
+        for j in range(i + 1, len(inputList)):
             if inputList[min].get_area() > inputList[j].get_area():
                 min = j
             inputList[i], inputList[min] = inputList[min], inputList[i]
     return inputList
 
+
+# function for random number
+def random_num():
+    return random.randint(0, 9)
+
+
+# function for random point object
+def random_point():
+    return Point(random_num(), random_num())
+
+
 # creates random triangles and rectangles and adds them to lists
 for i in range(0, 5):
-    randPoint1 = Point(random_num(), random_num())
-    randPoint2 = Point(random_num(), random_num())
-    randPoint3 = Point(random_num(), random_num())
-    newTriangle = Triangle(randPoint1, randPoint2, randPoint3)
-    newRectangle = Rectangle(randPoint1.x, randPoint1.y, random_num(), random.randint(1, 9))
+    newTriangle = Triangle(random_point(), random_point(), random_point())
+    newRectangle = Rectangle(random_point().x, random_point().y, random_num(), random_num())
     triangleList.append(newTriangle)
     rectangleList.append(newRectangle)
     formList.append(newRectangle)
@@ -139,5 +143,5 @@ print(formList)
 formList = sort_objects(formList)
 
 # prints all forms areas
-for i in range (len(formList)):
+for i in range(len(formList)):
     print(formList[i].get_area())
