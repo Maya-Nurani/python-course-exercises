@@ -104,12 +104,22 @@ print(myTriangle.get_circumence())
 
 triangleList = []
 rectangleList = []
+formList = []
 
 
 # Generic function for random number
 def random_num():
     return random.randint(1, 9)
 
+# bubble sorting forms by area
+def sort_objects(inputList):
+    for i in range(len(inputList)):
+        min = i
+        for j in range(i+1, len(inputList)):
+            if inputList[min].get_area() > inputList[j].get_area():
+                min = j
+            inputList[i], inputList[min] = inputList[min], inputList[i]
+    return inputList
 
 # creates random triangles and rectangles and adds them to lists
 for i in range(0, 5):
@@ -120,6 +130,14 @@ for i in range(0, 5):
     newRectangle = Rectangle(randPoint1.x, randPoint1.y, random_num(), random.randint(1, 9))
     triangleList.append(newTriangle)
     rectangleList.append(newRectangle)
+    formList.append(newRectangle)
+    formList.append(newTriangle)
 
-print(rectangleList[0])
-print(triangleList[0])
+print(rectangleList)
+print(triangleList)
+print(formList)
+formList = sort_objects(formList)
+
+# prints all forms areas
+for i in range (len(formList)):
+    print(formList[i].get_area())
