@@ -65,6 +65,7 @@ first_rectangle = Rectangle(0, 2, 2, 2)
 print(first_rectangle)
 print("Area of first rectangle =", first_rectangle.get_area())
 print("Diag length of first rectangle =", first_rectangle.get_diag_length())
+#print("Border points of first rectangle =", first_rectangle.get_border_points())
 
 
 # --------------------------
@@ -173,9 +174,9 @@ def add_rectangle(x, y, width, height):
     formList.append(newRectangle)
 
 
+add_rectangle(random_point().x, random_point().y, random_num(), random_num())
 # sort the list (by area) after adding new rectangle
 formList = bubble_sort_objects(formList)
-add_rectangle(random_point().x, random_point().y, random_num(), random_num())
 
 print("print list (by area) after adding new Rectangle")
 for i in range(len(formList)):
