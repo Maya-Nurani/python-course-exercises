@@ -125,7 +125,6 @@ def random_point():
 # Part B - section 1 - create lists of random objects
 triangleList = []
 rectangleList = []
-formList = []
 
 # Creates random triangles and rectangles and adds them to lists
 for i in range(0, 5):
@@ -133,9 +132,9 @@ for i in range(0, 5):
     newRectangle = Rectangle(random_point().x, random_point().y, random_num(), random_num())
     triangleList.append(newTriangle)
     rectangleList.append(newRectangle)
-    # TODO: concat lists
-    formList.append(newRectangle)
-    formList.append(newTriangle)
+
+# Create 1 list for both Rectangle and Triangle objects
+formList = rectangleList + triangleList
 
 ## TODO: remove print
 print(len(rectangleList))
