@@ -113,7 +113,7 @@ formList = []
 
 
 # bubble sorting forms by area
-def sort_objects(inputList):
+def selection_sort_objects(inputList):
     for i in range(len(inputList)):
         min = i
         for j in range(i + 1, len(inputList)):
@@ -170,17 +170,17 @@ for i in range(len(formList)):
     print(formList[i].get_area())
 
 
-def add_rectangle(x, y, width, height):
+def add_rectangle(x, y, width, height, list):
     newRectangle = Rectangle(x, y, width, height)
     area = newRectangle.get_area()
     print("The area of the new Rectangle", area)
     # Adding the Rectangle to formList
-    formList.append(newRectangle)
+    list.append(newRectangle)
+    bubble_sort_objects(list)
 
 
-add_rectangle(random_point().x, random_point().y, random_num(), random_num())
+add_rectangle(random_point().x, random_point().y, random_num(), random_num(), formList)
 # sort the list (by area) after adding new rectangle
-formList = bubble_sort_objects(formList)
 
 print("print list (by area) after adding new Rectangle")
 for i in range(len(formList)):
