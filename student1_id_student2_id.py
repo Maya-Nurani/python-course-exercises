@@ -1,6 +1,10 @@
 import random
 
 
+# Student 1 - Laly Datsyuk
+# Student 2 - Maya Nurani
+
+# --------------------------Point--------------------------#
 class Point:
     def __init__(self, x=0, y=0):
         self.x = x
@@ -9,28 +13,22 @@ class Point:
     def __str__(self):
         return "(" + str(self.x) + "," + str(self.y) + ")"
 
-    # not relevant for the project, this is example for a lesson
-    def add_generic(self, x=0, y=0):
-        self.x += x
-        self.y += y
-
     def get_dist(self, x2, y2):
         distance = (((self.x - x2) ** 2 + (self.y - y2) ** 2) ** 0.5)
         return distance
 
 
-p1 = Point(1, 1)
-p2 = Point(4, 4)
-p3 = Point(5, 4)
-
-p1.add_generic(x=3, y=2)
+## TODO: remove print
+p1 = Point(0, 0)
+p2 = Point(4, 0)
+p3 = Point(2, 4)
 
 print('This is point1', p1)
 print('This is point2', p2)
-print('The distance is:' + str(p1.get_dist(1, 1)))
+print('The distance is:' + str(p1.get_dist(1, 2)))
 
 
-# --------------------------
+# --------------------------Rectangle--------------------------#
 class Rectangle:
     def __init__(self, x, y, width, height):
         self.width = width
@@ -61,6 +59,7 @@ class Rectangle:
         self.width = self.width + value
 
 
+## TODO: remove print
 first_rectangle = Rectangle(0, 2, 2, 2)
 print(first_rectangle)
 print("Area of first rectangle =", first_rectangle.get_area())
@@ -72,16 +71,18 @@ first_rectangle.add_value_height(10)
 first_rectangle.add_value_width(4)
 
 
-# --------------------------
+# --------------------------Triangle--------------------------#
 class Triangle:
     def __init__(self, point1, point2, point3):
+        # TODO: if we don't know which point is the top - we can change their names to be the same
         self.topPoint = point1
         self.basePoint1 = point2
         self.basePoint2 = point3
 
     def __str__(self):
-        return str("First point is:" + self.topPoint.__str__() + " Second point is:" + self.basePoint1.__str__()
-                   + " Third point is:" + self.basePoint2.__str__())
+        return str(
+            "Triangle: First point is:" + self.topPoint.__str__() + " Second point is:" + self.basePoint1.__str__()
+            + " Third point is:" + self.basePoint2.__str__())
 
     def get_vertices(self):
         l1 = [self.topPoint.__str__(), self.basePoint1.__str__(), self.basePoint2.__str__()]
@@ -101,28 +102,71 @@ class Triangle:
         return side1 + side2 + side3
 
 
+## TODO: remove print
 myTriangle = Triangle(p1, p2, p3)
 print(myTriangle)
 print(myTriangle.get_vertices())
 print(myTriangle.get_area())
 print(myTriangle.get_circumence())
 
+
+# --------------------------Part B--------------------------#
+
+# Function for random number
+def random_num():
+    return random.randint(0, 9)
+
+
+# Function for random point object
+def random_point():
+    return Point(random_num(), random_num())
+
+
+# Part B - section 1 - create lists of random objects
 triangleList = []
 rectangleList = []
 formList = []
 
+# Creates random triangles and rectangles and adds them to lists
+for i in range(0, 5):
+    newTriangle = Triangle(random_point(), random_point(), random_point())
+    newRectangle = Rectangle(random_point().x, random_point().y, random_num(), random_num())
+    triangleList.append(newTriangle)
+    rectangleList.append(newRectangle)
+    # TODO: concat lists
+    formList.append(newRectangle)
+    formList.append(newTriangle)
 
-# bubble sorting forms by area
+## TODO: remove print
+print(len(rectangleList))
+print(len(triangleList))
+print(len(formList))
+
+
+# This function get list of shapes and print the areas of all items
+def print_list_by_area(listToPrint):
+    for shape in listToPrint:
+        print(shape.get_area())
+
+# This function get list of shapes and print the areas of all items
+def print_list_shapes(listToPrint):
+    for shape in listToPrint:
+        print(shape)
+
+
+# Part B - section 2 - sorting methods
+# Selection sort (by area)
 def selection_sort_objects(inputList):
     for i in range(len(inputList)):
         min = i
         for j in range(i + 1, len(inputList)):
             if inputList[min].get_area() > inputList[j].get_area():
                 min = j
-            inputList[i], inputList[min] = inputList[min], inputList[i]
+        inputList[i], inputList[min] = inputList[min], inputList[i]
     return inputList
 
 
+# Bubble sort (by area)
 def bubble_sort_objects(inputList):
     for n in range(len(inputList)):
         for index in range(len(inputList) - n - 1):
@@ -131,57 +175,49 @@ def bubble_sort_objects(inputList):
     return inputList
 
 
-# function for random number
-def random_num():
-    return random.randint(0, 9)
+# This function get sort method and list of shapes and return a sort list
+def sort_objects(sortType, inputList):
+    if sortType == 'bubble':
+        inputList = bubble_sort_objects(inputList)
+    elif sortType == 'selection':
+        inputList = selection_sort_objects(inputList)
+    return inputList
 
 
-# function for random point object
-def random_point():
-    return Point(random_num(), random_num())
-
-
-# creates random triangles and rectangles and adds them to lists
-for i in range(0, 5):
-    newTriangle = Triangle(random_point(), random_point(), random_point())
-    newRectangle = Rectangle(random_point().x, random_point().y, random_num(), random_num())
-    triangleList.append(newTriangle)
-    rectangleList.append(newRectangle)
-    formList.append(newRectangle)
-    formList.append(newTriangle)
-
-print(rectangleList)
-print(triangleList)
-print(formList)
-
-# TODO: print "before" will be remove before submit the code
+# TODO: print "before" will be removed before submit the code
+# Print all shapes data in the list - before sort
 print("before sort")
-for i in formList:
-    print(i.get_area())
+print_list_shapes(formList)
 
-# TODO : send the list to both type of sorting?
-
-# formList = sort_objects(formList)
-formList = bubble_sort_objects(formList)
+# Send the list to sort function
+sortType = ['bubble', 'selection']
+formList = sort_objects(sortType[1], formList)
 
 print("after sort")
-# prints all forms areas
-for i in range(len(formList)):
-    print(formList[i].get_area())
+# Part B - section 3 - print sorted list
+print_list_by_area(formList)
 
 
+# Part B - section 4 - add Rectangle to the list while keeping the order
 def add_rectangle(x, y, width, height, list):
     newRectangle = Rectangle(x, y, width, height)
     area = newRectangle.get_area()
     print("The area of the new Rectangle", area)
-    # Adding the Rectangle to formList
-    list.append(newRectangle)
-    bubble_sort_objects(list)
+    # Adding the Rectangle to the right place
+    isAdded = False
+    for i in range(len(list) - 1):
+        if list[i].get_area() <= area <= list[i + 1].get_area():
+            list.insert(i + 1, newRectangle)
+            isAdded = True
+            break;
+    # If the new area bigger than all existence areas in the list - we will add it at the end of the list
+    if isAdded == False:
+        list.insert(len(list) + 1, newRectangle)
 
 
 add_rectangle(random_point().x, random_point().y, random_num(), random_num(), formList)
-# sort the list (by area) after adding new rectangle
 
+# Part B - section 5 - print sorted list
+# Print list (by area) after adding new Rectangle
 print("print list (by area) after adding new Rectangle")
-for i in range(len(formList)):
-    print(formList[i].get_area())
+print_list_by_area(formList)
