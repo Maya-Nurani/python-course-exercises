@@ -18,16 +18,6 @@ class Point:
         return distance
 
 
-## TODO: remove print
-p1 = Point(0, 0)
-p2 = Point(4, 0)
-p3 = Point(2, 4)
-
-print('This is point1', p1)
-print('This is point2', p2)
-print('The distance is:' + str(p1.get_dist(1, 2)))
-
-
 # --------------------------Rectangle--------------------------#
 class Rectangle:
     def __init__(self, x, y, width, height):
@@ -59,55 +49,34 @@ class Rectangle:
         self.width = self.width + value
 
 
-## TODO: remove print
-first_rectangle = Rectangle(0, 2, 2, 2)
-print(first_rectangle)
-print("Area of first rectangle =", first_rectangle.get_area())
-print("Diag length of first rectangle =", first_rectangle.get_diag_length())
-print("Border points of first rectangle:")
-for point in first_rectangle.get_border_points():
-    print(point)
-first_rectangle.add_value_height(10)
-first_rectangle.add_value_width(4)
-
-
 # --------------------------Triangle--------------------------#
 class Triangle:
     def __init__(self, point1, point2, point3):
-        # TODO: if we don't know which point is the top - we can change their names to be the same
-        self.topPoint = point1
-        self.basePoint1 = point2
-        self.basePoint2 = point3
+        self.p1 = point1
+        self.p2 = point2
+        self.p3 = point3
 
     def __str__(self):
         return str(
-            "Triangle: First point is:" + self.topPoint.__str__() + " Second point is:" + self.basePoint1.__str__()
-            + " Third point is:" + self.basePoint2.__str__())
+            "Triangle: First point is:" + self.p1.__str__() + " Second point is:" + self.p2.__str__()
+            + " Third point is:" + self.p3.__str__())
 
     def get_vertices(self):
-        l1 = [self.topPoint.__str__(), self.basePoint1.__str__(), self.basePoint2.__str__()]
+        l1 = [self.p1.__str__(), self.p2.__str__(), self.p3.__str__()]
         return l1
 
     def get_area(self):
-        area = 0.5 * abs(self.topPoint.x * (self.basePoint1.y - self.basePoint2.y)
-                         + self.basePoint1.x * (self.basePoint2.y - self.topPoint.y) +
-                         self.basePoint2.x * (self.topPoint.y - self.basePoint1.y))
+        area = 0.5 * abs(self.p1.x * (self.p2.y - self.p3.y)
+                         + self.p2.x * (self.p3.y - self.p1.y) +
+                         self.p3.x * (self.p1.y - self.p2.y))
         return area
         # A = 0.5*[(x1(y2-y3)+x2(y3-y1)+x3(y1-y2)] equation for triangle's area calculation in XY pane
 
     def get_circumence(self):
-        side1 = self.topPoint.get_dist(self.basePoint1.x, self.basePoint1.y)
-        side2 = self.topPoint.get_dist(self.basePoint2.x, self.basePoint2.y)
-        side3 = self.basePoint1.get_dist(self.basePoint2.x, self.basePoint2.y)
+        side1 = self.p1.get_dist(self.p2.x, self.p2.y)
+        side2 = self.p1.get_dist(self.p3.x, self.p3.y)
+        side3 = self.p2.get_dist(self.p3.x, self.p3.y)
         return side1 + side2 + side3
-
-
-## TODO: remove print
-myTriangle = Triangle(p1, p2, p3)
-print(myTriangle)
-print(myTriangle.get_vertices())
-print(myTriangle.get_area())
-print(myTriangle.get_circumence())
 
 
 # --------------------------Part B--------------------------#
@@ -135,12 +104,6 @@ for i in range(0, 5):
 
 # Create 1 list for both Rectangle and Triangle objects
 formList = rectangleList + triangleList
-
-## TODO: remove print
-print(len(rectangleList))
-print(len(triangleList))
-print(len(formList))
-
 
 # This function get list of shapes and print the areas of all items
 def print_list_by_area(listToPrint):
@@ -181,12 +144,6 @@ def sort_objects(sortType, inputList):
     elif sortType == 'selection':
         inputList = selection_sort_objects(inputList)
     return inputList
-
-
-# TODO: print "before" will be removed before submit the code
-# Print all shapes data in the list - before sort
-print("before sort")
-print_list_shapes(formList)
 
 # Send the list to sort function
 sortType = ['bubble', 'selection']
