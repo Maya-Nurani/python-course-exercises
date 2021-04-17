@@ -12,6 +12,11 @@ print(temp_change)
 
 
 #### PartA exercise3 ####
+temp_total = temp_change
+print(temp_total)
+temp_total[0,0]=temp_total[0,0]+initial_temp
+temp_total = np.cumsum(temp_total)
+print(temp_total)
 
 #### Part B exercise 4 ####
 def check_hourly_temp_equal(temp_change):
