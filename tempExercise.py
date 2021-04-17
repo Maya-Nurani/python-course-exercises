@@ -11,8 +11,7 @@ temp_change = random.normal(loc=5, scale=2, size=(14, 24))
 print(temp_change)
 
 #### PartA exercise3 ####
-temp_total = temp_change
-print(temp_total)
+temp_total = np.copy(temp_change)  # Using copy in order to keep temp_change ad is withput editing both arrays
 temp_total[0, 0] = temp_total[0, 0] + initial_temp
 temp_total = np.cumsum(temp_total)
 temp_total = np.reshape(temp_total, (14, 24))
@@ -30,7 +29,7 @@ def average_per_day(temp_total):
 
 
 print("average def:")
-#average_per_day(temp_total)
+# average_per_day(temp_total)
 
 
 #### Part B exercise 2 (max) ####
@@ -42,7 +41,7 @@ def max_temp_per_day(temp_change):
 
 
 print("max def:")
-#max_temp_per_day(temp_change)
+# max_temp_per_day(temp_change)
 
 
 #### Part B exercise 3 (min) ####
@@ -54,7 +53,7 @@ def min_temp_per_day(temp_change):
 
 
 print("min def:")
-#min_temp_per_day(temp_change)
+# min_temp_per_day(temp_change)
 
 
 #### Part B exercise 4 (equal temp per hour) ####
@@ -66,30 +65,33 @@ def check_hourly_temp_equal(temp_change):
         if result:
             print("Pattern found at hour", hour)
         else:
-            print("All temp changes at hour", hour+1, "are not the same")
+            print("All temp changes at hour", hour + 1, "are not the same")
 
 
 check_hourly_temp_equal(temp_change)
 
+
 #### Part B exercise 5 (every 3 hours) ####
-def func3(temp_change):
+def sum_three_hours_change(temp_change):
     is_bigger = False
     index = 0
-    index= index + 2
-    print("index", index + 2)
-    print(temp_change.size)
+    arr = new_temp_change = np.ndarray.flatten(temp_change)
+    print(temp_change)
 
-    while (is_bigger == True & (index < temp_change.size)):
-        print(temp_change.size)
-        print("index",index+3)
-        sum = np.sum(temp_change[index:index+3], keepdims = True)
-        #print(sum)
-        index += 100
+    while (is_bigger == False and (index <= arr.size - 3)):
+        sum = np.sum(arr[index:index + 3])
+        index += 1
+        if sum > 8:
+            print("Wow, it is really hot in here.")
+            # TODO: remove the next print?
+            print("Sum is", sum, "index from:", index - 1)
+            is_bigger = True
+
 
 print("every 3 hours def:")
-func3(temp_change)
+sum_three_hours_change(temp_change)
 
-
+#### Part B exercise 6 (every 3 hours) ####
 
 ### Part C-1
 def convertTo1d(temp_change, temp_total):
@@ -101,11 +103,9 @@ def convertTo1d(temp_change, temp_total):
 ### convertTo1d run
 temp_change, temp_total = convertTo1d(temp_change, temp_total)
 
-
 ### Check for C-1
 print(temp_change, temp_total)
 print(temp_total.shape)
-
 
 #### Draft ####
 
