@@ -1,6 +1,8 @@
 import numpy as np
 from numpy import random
 
+import matplotlib.pyplot as plt
+
 #### PartA exercise1 ####
 initial_temp = random.randint(20, 41)
 print (initial_temp)
@@ -45,7 +47,6 @@ temp_change, temp_total = convertTo1d(temp_change, temp_total)
 ### Check for C-1
 print (temp_change, temp_total)
 print(temp_total.shape)
-
 
 
 #### Draft ####
