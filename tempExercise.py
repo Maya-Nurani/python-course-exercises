@@ -2,7 +2,7 @@ import numpy as np
 from numpy import random
 
 #### PartA exercise1 ####
-initial_temp = random.randint(20, 40)
+initial_temp = random.randint(20, 41)
 print (initial_temp)
 
 
