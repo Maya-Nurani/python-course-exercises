@@ -30,7 +30,7 @@ def average_per_day(temp_total):
 
 
 print("average def:")
-average_per_day(temp_total)
+#average_per_day(temp_total)
 
 
 #### Part B exercise 2 (max) ####
@@ -42,7 +42,7 @@ def max_temp_per_day(temp_change):
 
 
 print("max def:")
-max_temp_per_day(temp_change)
+#max_temp_per_day(temp_change)
 
 
 #### Part B exercise 3 (min) ####
@@ -54,7 +54,7 @@ def min_temp_per_day(temp_change):
 
 
 print("min def:")
-min_temp_per_day(temp_change)
+#min_temp_per_day(temp_change)
 
 
 #### Part B exercise 4 (equal temp per hour) ####
@@ -70,6 +70,25 @@ def check_hourly_temp_equal(temp_change):
 
 
 check_hourly_temp_equal(temp_change)
+
+#### Part B exercise 5 (every 3 hours) ####
+def func3(temp_change):
+    is_bigger = False
+    index = 0
+    index= index + 2
+    print("index", index + 2)
+    print(temp_change.size)
+
+    while (is_bigger == True & (index < temp_change.size)):
+        print(temp_change.size)
+        print("index",index+3)
+        sum = np.sum(temp_change[index:index+3], keepdims = True)
+        #print(sum)
+        index += 100
+
+print("every 3 hours def:")
+func3(temp_change)
+
 
 
 ### Part C-1
@@ -91,12 +110,6 @@ print(temp_total.shape)
 #### Draft ####
 
 # np.round(x)
-# temp_total[0, 0] = initial_temp + temp_change[0,0]
-
-# print(temp_total[0, 0])
-# print(temp_change[0,[0]]+initial_temp)
-# print(temp_change[0,[1]]+temp_change[0,[0]]+initial_temp)
-# print(temp_change)
 
 # for test
 arr = np.arange(100)
