@@ -117,6 +117,16 @@ def totalTempByHour():
 
 totalTempByHour()
 
+
+### Part C exercise 3
+def changesHistogram():
+    plt.hist(temp_change, bins=8)
+    plt.grid()
+    plt.xlabel("Temperature change histogram")
+    plt.show()
+
+changesHistogram()
+
 ### Check for C-1
 print(temp_change, temp_total)
 print(temp_total.shape)
