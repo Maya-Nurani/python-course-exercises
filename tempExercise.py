@@ -93,7 +93,8 @@ sum_three_hours_change(temp_change)
 
 #### Part B exercise 6 (every 3 hours) ####
 
-### Part C-1
+
+### Part C exercise 1
 def convertTo1d(temp_change, temp_total):
     new_temp_change = np.ndarray.flatten(temp_change)
     new_temp_total = np.ndarray.flatten(temp_total)
@@ -102,6 +103,19 @@ def convertTo1d(temp_change, temp_total):
 
 ### convertTo1d run
 temp_change, temp_total = convertTo1d(temp_change, temp_total)
+
+
+### Part C exercise 2
+def totalTempByHour():
+    y_axis = temp_total[0:24]
+    x_axis = np.arange(24)
+    plt.plot(x_axis, y_axis)
+    plt.xlabel("Hour")
+    plt.ylabel("Temperature")
+    plt.grid()
+    plt.show()
+
+totalTempByHour()
 
 ### Check for C-1
 print(temp_change, temp_total)
