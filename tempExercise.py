@@ -2,22 +2,17 @@ import numpy as np
 from numpy import random
 import matplotlib.pyplot as plt
 
-#### PartA exercise1 ####
+#### Part A exercise1 ####
 initial_temp = random.randint(20, 41)
-print(initial_temp)
 
-#### PartA exercise2 ####
+#### Part A exercise2 ####
 temp_change = random.normal(loc=5, scale=2, size=(14, 24))
-print(temp_change)
 
-#### PartA exercise3 ####
+#### Part A exercise3 ####
 temp_total = np.copy(temp_change)  # Using copy in order to keep temp_change ad is withput editing both arrays
 temp_total[0, 0] = temp_total[0, 0] + initial_temp
 temp_total = np.cumsum(temp_total)
 temp_total = np.reshape(temp_total, (14, 24))
-print("print total after sum")
-print(temp_total)
-print("Print shape", temp_total.shape)
 
 
 #### Part B exercise 1 (average) ####
@@ -34,7 +29,7 @@ average_per_day(temp_total)
 #### Part B exercise 2 (max) ####
 def max_temp_per_day(temp_change):
     day_number = 1
-    for i in temp_total:
+    for i in temp_change:
         print("The maximum temperature change during day", day_number, " is ", np.max(i))
         day_number += 1
 
@@ -45,7 +40,7 @@ max_temp_per_day(temp_change)
 #### Part B exercise 3 (min) ####
 def min_temp_per_day(temp_change):
     day_number = 1
-    for i in temp_total:
+    for i in temp_change:
         print("The minimum temperature change during day", day_number, " is ", np.min(i))
         day_number += 1
 
@@ -59,9 +54,7 @@ def check_hourly_temp_equal(temp_change):
         column = temp_change[:, hour]
         result = np.all(column == column[0])
         if result:
-            print("Pattern found at hour", hour)
-        else:
-            print("All temp changes at hour", hour + 1, "are not the same")
+            print("Pattern found at hour", hour + 1)
 
 
 check_hourly_temp_equal(temp_change)
@@ -72,8 +65,7 @@ def sum_three_hours_change(temp_change):
     is_bigger = False
     index = 0
     arr = np.ndarray.flatten(temp_change)
-
-    while (is_bigger == False and (index <= arr.size - 3)):
+    while ((is_bigger == False) and (index <= arr.size - 3)):
         sum = np.sum(arr[index:index + 3])
         index += 1
         if sum > 8:
@@ -91,7 +83,7 @@ def temp_changes_higher_than_3(temp_change):
     return temp_change_arr[filter_arr]
 
 
-print(temp_changes_higher_than_3(temp_change))
+temp_changes_higher_than_3(temp_change)
 
 
 #### Part B exercise 7 (hours of temp higher than 3) ####
@@ -123,7 +115,9 @@ def totalTempByHour():
     plt.ylabel("Temperature")
     plt.grid()
     plt.show()
-#TODO: check big numbers
+
+
+# TODO: check big numbers
 
 
 ### Part C exercise 3
@@ -151,6 +145,4 @@ totalTempByHour()
 changesHistogram()
 dailyAverage()
 
-#TODO: describe results
-
-
+# TODO: describe results
