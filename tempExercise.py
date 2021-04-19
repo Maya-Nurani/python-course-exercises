@@ -125,7 +125,22 @@ def changesHistogram():
     plt.xlabel("Temperature change histogram")
     plt.show()
 
+
+### Part C exercise 4
+def dailyAverage():
+    new_temp_total = temp_total.reshape(14, 24)
+    avg_total = new_temp_total.mean(1)
+    y_axis = np.ndarray.flatten(avg_total)
+    x_axis = np.arange(1,15)
+    plt.plot(x_axis, y_axis)
+    plt.xlabel("Day")
+    plt.ylabel("Temperature Average")
+    plt.grid()
+    plt.show()
+
+
 changesHistogram()
+dailyAverage()
 
 ### Check for C-1
 print(temp_change, temp_total)
