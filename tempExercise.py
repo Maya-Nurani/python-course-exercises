@@ -28,10 +28,7 @@ def average_per_day(temp_total):
         day_number += 1
 
 
-print("average def:")
-
-
-# average_per_day(temp_total)
+average_per_day(temp_total)
 
 
 #### Part B exercise 2 (max) ####
@@ -42,10 +39,7 @@ def max_temp_per_day(temp_change):
         day_number += 1
 
 
-print("max def:")
-
-
-# max_temp_per_day(temp_change)
+max_temp_per_day(temp_change)
 
 
 #### Part B exercise 3 (min) ####
@@ -56,17 +50,13 @@ def min_temp_per_day(temp_change):
         day_number += 1
 
 
-print("min def:")
-
-
-# min_temp_per_day(temp_change)
+min_temp_per_day(temp_change)
 
 
 #### Part B exercise 4 (equal temp per hour) ####
 def check_hourly_temp_equal(temp_change):
     for hour in range(0, 24):
         column = temp_change[:, hour]
-        print(np.round(column))  ### TODO: decide if round and if not - remove this row
         result = np.all(column == column[0])
         if result:
             print("Pattern found at hour", hour)
@@ -81,20 +71,16 @@ check_hourly_temp_equal(temp_change)
 def sum_three_hours_change(temp_change):
     is_bigger = False
     index = 0
-    arr = new_temp_change = np.ndarray.flatten(temp_change)
-    print(temp_change)
+    arr = np.ndarray.flatten(temp_change)
 
     while (is_bigger == False and (index <= arr.size - 3)):
         sum = np.sum(arr[index:index + 3])
         index += 1
         if sum > 8:
             print("Wow, it is really hot in here.")
-            # TODO: remove the next print?
-            print("Sum is", sum, "index from:", index - 1)
             is_bigger = True
 
 
-print("every 3 hours def:")
 sum_three_hours_change(temp_change)
 
 
@@ -105,8 +91,16 @@ def temp_changes_higher_than_3(temp_change):
     return temp_change_arr[filter_arr]
 
 
-print("Exc 6 temo changes higher than 3")
 print(temp_changes_higher_than_3(temp_change))
+
+
+#### Part B exercise 7 (hours of temp higher than 3) ####
+def hours_of_tem_higher_than_3(temp_change):
+    array_of_hours = np.argwhere(temp_change > 3)
+    return array_of_hours
+
+
+hours_of_tem_higher_than_3(temp_change)
 
 
 ### Part C exercise 1
@@ -129,9 +123,7 @@ def totalTempByHour():
     plt.ylabel("Temperature")
     plt.grid()
     plt.show()
-
-
-totalTempByHour()
+#TODO: check big numbers
 
 
 ### Part C exercise 3
@@ -155,19 +147,10 @@ def dailyAverage():
     plt.show()
 
 
+totalTempByHour()
 changesHistogram()
 dailyAverage()
 
-### Check for C-1
-print(temp_change, temp_total)
-print(temp_total.shape)
+#TODO: describe results
 
-#### Draft ####
 
-# np.round(x)
-
-# for test
-arr = np.arange(100)
-arr.shape = (10, 10)
-# print(arr)
-# print(arr[ : ,0])
