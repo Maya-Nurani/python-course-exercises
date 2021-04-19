@@ -29,6 +29,8 @@ def average_per_day(temp_total):
 
 
 print("average def:")
+
+
 # average_per_day(temp_total)
 
 
@@ -41,6 +43,8 @@ def max_temp_per_day(temp_change):
 
 
 print("max def:")
+
+
 # max_temp_per_day(temp_change)
 
 
@@ -53,6 +57,8 @@ def min_temp_per_day(temp_change):
 
 
 print("min def:")
+
+
 # min_temp_per_day(temp_change)
 
 
@@ -91,7 +97,16 @@ def sum_three_hours_change(temp_change):
 print("every 3 hours def:")
 sum_three_hours_change(temp_change)
 
-#### Part B exercise 6 (every 3 hours) ####
+
+#### Part B exercise 6 (temp higher than 3) ####
+def temp_changes_higher_than_3(temp_change):
+    temp_change_arr = np.copy(temp_change)
+    filter_arr = temp_change_arr > 3
+    return temp_change_arr[filter_arr]
+
+
+print("Exc 6 temo changes higher than 3")
+print(temp_changes_higher_than_3(temp_change))
 
 
 ### Part C exercise 1
@@ -115,6 +130,7 @@ def totalTempByHour():
     plt.grid()
     plt.show()
 
+
 totalTempByHour()
 
 
@@ -131,7 +147,7 @@ def dailyAverage():
     new_temp_total = temp_total.reshape(14, 24)
     avg_total = new_temp_total.mean(1)
     y_axis = np.ndarray.flatten(avg_total)
-    x_axis = np.arange(1,15)
+    x_axis = np.arange(1, 15)
     plt.plot(x_axis, y_axis)
     plt.xlabel("Day")
     plt.ylabel("Temperature Average")
