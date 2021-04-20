@@ -14,7 +14,6 @@ temp_total[0, 0] = temp_total[0, 0] + initial_temp
 temp_total = np.cumsum(temp_total)
 temp_total = np.reshape(temp_total, (14, 24))
 
-
 #### Part B exercise 1 (average) ####
 def average_per_day(temp_total):
     day_number = 1
@@ -108,16 +107,13 @@ temp_change, temp_total = convertTo1d(temp_change, temp_total)
 
 ### Part C exercise 2
 def totalTempByHour():
-    y_axis = temp_total[0:24]
-    x_axis = np.arange(24)
+    y_axis = temp_total
+    x_axis = np.arange(336)
     plt.plot(x_axis, y_axis)
     plt.xlabel("Hour")
     plt.ylabel("Temperature")
     plt.grid()
     plt.show()
-
-
-# TODO: check big numbers
 
 
 ### Part C exercise 3
@@ -143,6 +139,6 @@ def dailyAverage():
 
 totalTempByHour()
 changesHistogram()
-dailyAverage()
 
-# TODO: describe results
+# a graph that shows the daily average temperature over the 2 weeks
+dailyAverage()
