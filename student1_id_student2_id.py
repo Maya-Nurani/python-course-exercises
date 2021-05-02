@@ -25,3 +25,20 @@ print (dataset)
 print (x_arr)
 print (y_arr)
 print (z_arr)
+
+#Part A question 1
+print("The maximum value of y is: {0}".format(dataset['y'].max()))
+
+#Part A question 2
+print("The minimum value of z is: {0}".format(dataset['z'].min()))
+
+#Part A question 3 - NOT WORKING YET
+print(dataset['y'].equals(dataset['x']))
+
+#Part A question 4
+print("The first 5 rows of X and Z columns of the dataset: \n {0}" .format(dataset[['x','z']].head()))
+
+#Part A question 5
+#def new_column_creation(x,y):
+ #   return 2*x-np.power(x,2)
+#new_column = np.array([new_column_creation(i) for i in x_arr])
