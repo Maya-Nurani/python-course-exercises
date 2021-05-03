@@ -102,16 +102,33 @@ print("The percentage of delayed and cloudy flights out of all flights is", (num
 unique_distances = flights_data_df[flights_data_df['Carrier'] == 'DH']['Dest'].unique()
 print("The unique different destinations for DH Carrier are:", unique_distances)
 
-# Part B - queries - 7
+# dt column
 dt = flights_data_df['DepTime']
+
+# Part B - queries - 7
 num_morning_flights = flights_data_df[(dt >= 1000) & (dt <= 1500)].count()['flightId']
 print("The number of flights that departure between 10:00 to 15:00 is", num_morning_flights)
 
 # Part B - queries - 8
-dt = flights_data_df['DepTime']
-num_morning_flights = flights_data_df[(dt >= 1400) & (dt <= 1700) & (flights_data_df['Day'] == 'WED')].count()['flightId']
-print("The number of flights that departure between 14:00 to 17:00 and day = Wednesday is", num_morning_flights)
+num_WED_noon_flights = flights_data_df[(dt >= 1400) & (dt <= 1700) & (flights_data_df['Day'] == 'WED')].count()['flightId']
+print("The number of flights that departure between 14:00 to 17:00 and day = Wednesday is", num_WED_noon_flights)
 
+# Part B - queries - 9
+num_WED_noon_JFK_flights = flights_data_df[(dt >= 1300) & (dt <= 1700) & (flights_data_df['Day'] == 'WED') & (flights_data_df['Dest'] == 'JFK')].count()['flightId']
+print("The number of flights that departure between 14:00 to 17:00 on Wednesday and arrived to JFK is", num_WED_noon_JFK_flights)
+
+# Part B - queries - 10
+latest_time = dt.max()
+print("The latest time at the system is", latest_time)
+
+# Part B - Visualizations
+
+# Visualization 1: a pie chart that shows the part of the delayed flights in the total amount
+pieSlices = (num_delayed_flights, rows-num_delayed_flights)
+pieTitles = ('Delayed Flights', 'Flights on time')
+pieColors = ('r', 'y')
+plt.pie(pieSlices, labels=pieTitles, colors=pieColors, shadow=True, autopct='%1.2f%%')
+plt.show()
 
 # Part C question 1
 print(flights_data_df.groupby('Delayed').count()['flightId'])
