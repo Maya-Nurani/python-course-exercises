@@ -53,7 +53,6 @@ def show_scatter(a,b):
 show_scatter('x', 'y')
 show_scatter('x', 'z')
 
-print(dataset)
 
 # Part A question 9
 plt.scatter(np.arange(3500), dataset.sample(frac=0.35)['newColumn'], color='black')
