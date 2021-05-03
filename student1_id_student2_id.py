@@ -66,3 +66,14 @@ print("Print columns that contain NaN values", flights_data_df.columns[flights_d
 
 # Part B question 4
 print("The most frequent day is:", flights_data_df['Day'].value_counts().idxmax())
+
+# Part C question 1
+print("The state in USA that have the most number of flights is ", flights_data_df['Carrier'].value_counts().idxmax())
+
+# Part C question 2
+print("The number of flights to EWR,New-york destination is",
+      flights_data_df.groupby('Dest').count()['flightId']['EWR'])
+
+# Part C question 3
+print("The number of flights that departure from DCA and arrived to JFK is",
+      flights_data_df[(flights_data_df['Dest'] == 'JFK') & (flights_data_df['Origin'] == 'DCA')].count()['flightId'])
