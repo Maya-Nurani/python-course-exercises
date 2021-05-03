@@ -39,20 +39,20 @@ print("The duplicates between Y and Z are: \n {0}".format(find_duplicates()))
 print("The first 5 rows of X and Z columns of the dataset: \n {0}".format(dataset[['x', 'z']].head()))
 
 # Part A question 5
-dataset['newColumn'] = new_column = 2*dataset['x'] - np.power(dataset['y'], 2)
+dataset['newColumn'] = new_column = 2 * dataset['x'] - np.power(dataset['y'], 2)
 
 
 # Part A questions 6, 7, 8
-def show_scatter(a,b):
+def show_scatter(a, b):
     plt.scatter(dataset[a], dataset[b], color='purple')
     plt.xlabel(str(a) + ' Axis')
     plt.ylabel(str(b) + ' Axis')
     plt.grid(color='pink')
     plt.show()
 
+
 show_scatter('x', 'y')
 show_scatter('x', 'z')
-
 
 # Part A question 9
 plt.scatter(np.arange(3500), dataset.sample(frac=0.35)['newColumn'], color='black')
@@ -89,3 +89,33 @@ print("The number of flights to EWR,New-york destination is",
 # Part C question 3
 print("The number of flights that departure from DCA and arrived to JFK is",
       flights_data_df[(flights_data_df['Dest'] == 'JFK') & (flights_data_df['Origin'] == 'DCA')].count()['flightId'])
+
+# Part C question 1
+print(flights_data_df.groupby('Delayed').count()['flightId'])
+
+# Part C question 2&3
+# The sum of the boolean values in 'Delayed' column shows us the number of the delayed flights,
+# because it counts 1 for every delayed flight
+print('The sum of Delayed flights column is: {0}'.format(flights_data_df['Delayed'].sum()))
+
+# Part C question 4
+# The average of the the binaric values shows us the percent of '1' values in the total number of values,
+# i.e the percent of delayed flights in the total number of flights
+print('The average of Delayed flights column is: {0}'.format(flights_data_df['Delayed'].mean()))
+
+# Part C question 5
+rand_arr = np.random.uniform(0, 1, size=20)
+rand_arr[rand_arr < 0.5] = 0
+rand_arr[rand_arr >= 0.5] = 1
+# The percent of the values bigger from 0.5 is equal to the average of the array
+print('The average of the random array is: {0}'.format(rand_arr.mean()))
+
+
+# Part C question 6
+def sort_max_to_min(arr):
+    arr.sort()
+    arr = arr[::-1]
+    return arr
+
+
+rand_arr = sort_max_to_min(rand_arr)
