@@ -55,10 +55,14 @@ flights_data_df = pd.read_csv('flights.csv')
 # Part B question 2
 # number of rows
 rows = len(flights_data_df.axes[0])
-print(rows)
+print("Number of rows = ", rows)
 # computing number of columns
 cols = len(flights_data_df.axes[1])
-print(cols)
+print("Number of columns = ", cols)
 
 # Part B question 3
-print("columns names: ", list(flights_data_df.columns))
+print("Columns names: ", list(flights_data_df.columns))
+print("Print columns that contain NaN values", flights_data_df.columns[flights_data_df.isnull().any()].tolist())
+
+# Part B question 4
+print("The most frequent day is:", flights_data_df['Day'].value_counts().idxmax())
