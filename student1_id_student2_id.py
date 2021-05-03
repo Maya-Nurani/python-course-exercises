@@ -32,8 +32,12 @@ print("The maximum value of y is: {0}".format(dataset['y'].max()))
 #Part A question 2
 print("The minimum value of z is: {0}".format(dataset['z'].min()))
 
-#Part A question 3 - NOT WORKING YET
-print(dataset['y'].equals(dataset['x']))
+#Part A question 3
+def findDuplicates(a,b):
+    duplicatesIndexes = np.where(a==b)
+    for i in duplicatesIndexes:
+        return a[i]
+print("The duplicates between Y and Z are: \n {0}".format(findDuplicates(dataset['x'], dataset['y'])))
 
 #Part A question 4
 print("The first 5 rows of X and Z columns of the dataset: \n {0}" .format(dataset[['x','z']].head()))
