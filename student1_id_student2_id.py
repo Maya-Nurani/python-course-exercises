@@ -39,20 +39,20 @@ print("The duplicates between Y and Z are: \n {0}".format(find_duplicates()))
 print("The first 5 rows of X and Z columns of the dataset: \n {0}".format(dataset[['x', 'z']].head()))
 
 # Part A question 5
-dataset['newColumn'] = new_column = 2 * dataset['x'] - np.power(dataset['y'], 2)
+dataset['newColumn'] = new_column = 2*dataset['x'] - np.power(dataset['y'], 2)
 
 
 # Part A questions 6, 7, 8
-def show_scatter(a, b):
+def show_scatter(a,b):
     plt.scatter(dataset[a], dataset[b], color='purple')
     plt.xlabel(str(a) + ' Axis')
     plt.ylabel(str(b) + ' Axis')
     plt.grid(color='pink')
     plt.show()
 
-
 show_scatter('x', 'y')
 show_scatter('x', 'z')
+
 
 # Part A question 9
 plt.scatter(np.arange(3500), dataset.sample(frac=0.35)['newColumn'], color='black')
@@ -89,6 +89,29 @@ print("The number of flights to EWR,New-york destination is",
 # Part C question 3
 print("The number of flights that departure from DCA and arrived to JFK is",
       flights_data_df[(flights_data_df['Dest'] == 'JFK') & (flights_data_df['Origin'] == 'DCA')].count()['flightId'])
+
+# Part B - queries - 4
+num_delayed_flights = flights_data_df[flights_data_df['Delayed'] == 1].count()['flightId']
+print("The percentage of delayed flights out of all flights is", (num_delayed_flights/rows)*100, "%")
+
+# Part B - queries - 5
+num_delayed_flights_and_rainy = flights_data_df[(flights_data_df['Delayed'] == 1) & (flights_data_df['Weather'] == 2)].count()['flightId']
+print("The percentage of delayed and cloudy flights out of all flights is", (num_delayed_flights_and_rainy/rows)*100, "%")
+
+# Part B - queries - 6
+unique_distances = flights_data_df[flights_data_df['Carrier'] == 'DH']['Dest'].unique()
+print("The unique different destinations for DH Carrier are:", unique_distances)
+
+# Part B - queries - 7
+dt = flights_data_df['DepTime']
+num_morning_flights = flights_data_df[(dt >= 1000) & (dt <= 1500)].count()['flightId']
+print("The number of flights that departure between 10:00 to 15:00 is", num_morning_flights)
+
+# Part B - queries - 8
+dt = flights_data_df['DepTime']
+num_morning_flights = flights_data_df[(dt >= 1400) & (dt <= 1700) & (flights_data_df['Day'] == 'WED')].count()['flightId']
+print("The number of flights that departure between 14:00 to 17:00 and day = Wednesday is", num_morning_flights)
+
 
 # Part C question 1
 print(flights_data_df.groupby('Delayed').count()['flightId'])
