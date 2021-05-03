@@ -79,13 +79,36 @@ print("Print columns that contain NaN values", flights_data_df.columns[flights_d
 # Part B question 4
 print("The most frequent day is:", flights_data_df['Day'].value_counts().idxmax())
 
-# Part C question 1
+# Part B - queries - 1
 print("The state in USA that have the most number of flights is ", flights_data_df['Carrier'].value_counts().idxmax())
 
-# Part C question 2
+# Part B - queries - 2
 print("The number of flights to EWR,New-york destination is",
       flights_data_df.groupby('Dest').count()['flightId']['EWR'])
 
-# Part C question 3
+# Part B - queries - 3
 print("The number of flights that departure from DCA and arrived to JFK is",
       flights_data_df[(flights_data_df['Dest'] == 'JFK') & (flights_data_df['Origin'] == 'DCA')].count()['flightId'])
+
+# Part B - queries - 4
+num_delayed_flights = flights_data_df[flights_data_df['Delayed'] == 1].count()['flightId']
+print("The percentage of delayed flights out of all flights is", (num_delayed_flights/rows)*100, "%")
+
+# Part B - queries - 5
+num_delayed_flights_and_rainy = flights_data_df[(flights_data_df['Delayed'] == 1) & (flights_data_df['Weather'] == 2)].count()['flightId']
+print("The percentage of delayed and cloudy flights out of all flights is", (num_delayed_flights_and_rainy/rows)*100, "%")
+
+# Part B - queries - 6
+unique_distances = flights_data_df[flights_data_df['Carrier'] == 'DH']['Dest'].unique()
+print("The unique different destinations for DH Carrier are:", unique_distances)
+
+# Part B - queries - 7
+dt = flights_data_df['DepTime']
+num_morning_flights = flights_data_df[(dt >= 1000) & (dt <= 1500)].count()['flightId']
+print("The number of flights that departure between 10:00 to 15:00 is", num_morning_flights)
+
+# Part B - queries - 8
+dt = flights_data_df['DepTime']
+num_morning_flights = flights_data_df[(dt >= 1400) & (dt <= 1700) & (flights_data_df['Day'] == 'WED')].count()['flightId']
+print("The number of flights that departure between 14:00 to 17:00 and day = Wednesday is", num_morning_flights)
+
