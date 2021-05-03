@@ -53,7 +53,6 @@ def show_scatter(a,b):
 show_scatter('x', 'y')
 show_scatter('x', 'z')
 
-print(dataset)
 
 # Part A question 9
 plt.scatter(np.arange(3500), dataset.sample(frac=0.35)['newColumn'], color='black')
@@ -68,10 +67,25 @@ flights_data_df = pd.read_csv('flights.csv')
 # Part B question 2
 # number of rows
 rows = len(flights_data_df.axes[0])
-print(rows)
+print("Number of rows = ", rows)
 # computing number of columns
 cols = len(flights_data_df.axes[1])
-print(cols)
+print("Number of columns = ", cols)
 
 # Part B question 3
-print("columns names: ", list(flights_data_df.columns))
+print("Columns names: ", list(flights_data_df.columns))
+print("Print columns that contain NaN values", flights_data_df.columns[flights_data_df.isnull().any()].tolist())
+
+# Part B question 4
+print("The most frequent day is:", flights_data_df['Day'].value_counts().idxmax())
+
+# Part C question 1
+print("The state in USA that have the most number of flights is ", flights_data_df['Carrier'].value_counts().idxmax())
+
+# Part C question 2
+print("The number of flights to EWR,New-york destination is",
+      flights_data_df.groupby('Dest').count()['flightId']['EWR'])
+
+# Part C question 3
+print("The number of flights that departure from DCA and arrived to JFK is",
+      flights_data_df[(flights_data_df['Dest'] == 'JFK') & (flights_data_df['Origin'] == 'DCA')].count()['flightId'])
