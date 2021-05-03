@@ -49,6 +49,8 @@ print("The first 5 rows of X and Z columns of the dataset: \n {0}".format(datase
 #   return 2*x-np.power(x,2)
 # new_column = np.array([new_column_creation(i) for i in x_arr])
 
+#Part A question 6
+
 # Part B question 1
 flights_data_df = pd.read_csv('flights.csv')
 
