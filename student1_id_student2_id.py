@@ -43,11 +43,12 @@ dataset['newColumn'] = new_column = 2*dataset['x'] - np.power(dataset['y'], 2)
 
 
 # Part A questions 6, 7, 8
-def show_scatter(a,b):
+def show_scatter(a, b):
     plt.scatter(dataset[a], dataset[b], color='purple')
     plt.xlabel(str(a) + ' Axis')
     plt.ylabel(str(b) + ' Axis')
     plt.grid(color='pink')
+    plt.title('{0} on {1} columns graph'.format(b, a))
     plt.show()
 
 show_scatter('x', 'y')
@@ -59,6 +60,7 @@ plt.scatter(np.arange(3500), dataset.sample(frac=0.35)['newColumn'], color='blac
 plt.xlabel('Index')
 plt.ylabel('2x-y^2')
 plt.grid(color='green')
+plt.title('2x-y^2 column graph')
 plt.show()
 
 # Part B question 1
@@ -123,11 +125,26 @@ print("The latest time at the system is", latest_time)
 
 # Part B - Visualizations
 
-# Visualization 1: a pie chart that shows the part of the delayed flights in the total amount
+# Visualization 1: a pie chart that shows the part of the delayed flights in the total amount (query 4)
 pieSlices = (num_delayed_flights, rows-num_delayed_flights)
 pieTitles = ('Delayed Flights', 'Flights on time')
 pieColors = ('r', 'y')
+plt.title('Delayed flights percent')
 plt.pie(pieSlices, labels=pieTitles, colors=pieColors, shadow=True, autopct='%1.2f%%')
+plt.show()
+
+# Visualization 2: a pie chart that show to percent of JFK flights in all afternoon Wednesday flights (query 9)
+wedPieSlices = (num_WED_noon_JFK_flights, num_WED_noon_flights)
+wedPieTitles = ('JFK WED FLIGHTS', 'OTHER WED FLIGHTS')
+wedPieColors = ('b','g')
+plt.title('JFK Wednesday afternoon flights percent')
+plt.pie(wedPieSlices, labels=wedPieTitles, colors=wedPieColors, autopct='%1.1f%%')
+plt.show()
+
+# Visualization 3: A graph that shows the amount of flights for each carrier (query 1)
+plt.plot(flights_data_df.groupby('Carrier').count()['flightId'], marker='o', color='g', markeredgecolor='g', linestyle='none')
+plt.title('Amount of flights for each carrier')
+plt.grid()
 plt.show()
 
 # Part C question 1
