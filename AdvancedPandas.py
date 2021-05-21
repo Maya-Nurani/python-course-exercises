@@ -1,3 +1,5 @@
+import random as random
+
 import pandas as pd
 import numpy as np
 
@@ -33,17 +35,18 @@ reduce_average_and_std_from_score(column_names)
 print(students_data_df[column_names].head())
 
 # Part B - Query 2
+
 # max_val_df = students_data_df[students_data_df['test preparation course'] == 'completed'].groupby('race/ethnicity').value_counts()
 # print(max_val_df)
 # max_group = max_val_df['race/ethnicity'].where[max_val_df['gender'] == max_val_df['gender'].max()]
 # print("The group with the most students that finish the pre-course", max_val_df['race/ethnicity'].where(max_val_df == max_val_df['gender'].max()))
 
-# print(students_data_df[students_data_df['test preparation course'] == 'completed'].value_counts())
 
 completed_stud = students_data_df[students_data_df['test preparation course'] == 'completed']
 print(completed_stud.head())
-max_val = completed_stud['race/ethnicity'].value_counts()
-print(max_val[max_val.values == max_val.max()])
+max_val = completed_stud.groupby('race/ethnicity').count()
+print("completed_stud type ", type(completed_stud))
+print(max_val.nlargest(1, 'gender'))
 
 
 # Part B - Query 3
@@ -61,3 +64,10 @@ def distance(lst1, lst2):
 lst1 = [2, 4, 6]
 lst2 = [1, 2, 3]
 print(distance(lst1, lst2))
+
+# Part C question 2  > not completed
+items = ['A','B','C','D','E']
+df = pd.DataFrame( columns = ['id', 'item'], index=range(10))
+df['id'] = range(10)
+df = df['item'].apply(lambda x: random.choice(items))
+print(df)
