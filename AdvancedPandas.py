@@ -1,5 +1,5 @@
 import random as random
-
+import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 
@@ -42,18 +42,10 @@ reduce_average_and_std_from_score(column_names)
 print(students_data_df[column_names].head())
 
 # Part B - Query 2
-
-# max_val_df = students_data_df[students_data_df['test preparation course'] == 'completed'].groupby('race/ethnicity').value_counts()
-# print(max_val_df)
-# max_group = max_val_df['race/ethnicity'].where[max_val_df['gender'] == max_val_df['gender'].max()]
-# print("The group with the most students that finish the pre-course", max_val_df['race/ethnicity'].where(max_val_df == max_val_df['gender'].max()))
-
-
 completed_stud = students_data_df[students_data_df['test preparation course'] == 'completed']
-print(completed_stud.head())
-max_val = completed_stud.groupby('race/ethnicity').count()
-print("completed_stud type ", type(completed_stud))
-print(max_val.nlargest(1, 'gender'))
+group = completed_stud['race/ethnicity'].value_counts().head(1)
+print("The group with the most students that finish pre-course:", group.index.values.tolist()[0])
+
 
 
 # Part B - Query 3
