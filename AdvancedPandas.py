@@ -10,10 +10,17 @@ except:
     print("Failed to read the file")
     students_data_df = []  # In case the file is not read
 
-# Part A - question 1
-print("There are", students_data_df.shape[0], "rows and", students_data_df.shape[1], "columns in this file.")
-print("Columns names are: ", list(students_data_df.columns))
+# Part A ex. 1
 print(students_data_df.describe())
+
+# Part A ex. 2
+students_data_df["race/ethnicity"].value_counts().plot(kind="bar", color='r')
+plt.grid()
+plt.title("Group value amount")
+plt.show()
+
+# Part A ex. 3
+print('the amount of studends is: {0}'.format(students_data_df.groupby('parental level of education').count()['gender']['high school']))
 
 
 # Part B - Query 1
