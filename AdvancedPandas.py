@@ -1,5 +1,5 @@
 import random as random
-
+import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 
@@ -20,8 +20,38 @@ plt.title("Group value amount")
 plt.show()
 
 # Part A ex. 3
-print('the amount of studends is: {0}'.format(students_data_df.groupby('parental level of education').count()['gender']['high school']))
+total_students = int(len(students_data_df.axes[0]))
+print (total_students)
+print('the percent of highschol studends is: {0}'.format(students_data_df.groupby('parental level of education').count()['gender']['high school']/total_students))
 
+# Part A ex. 4
+# The function 'isnull' checks if theres an empty or NaN value in the given dataframe
+if not (students_data_df.isnull().values.any()):
+    print('There is no empty values in this dataframe')
+
+else:
+    print(students_data_df.isnull().sum() > 0)
+
+#Part A ex. 5
+#TODO: check if we should rewrite the main dataframe instead of creating a new one
+bin_gender_df = pd.get_dummies(students_data_df['gender'], prefix='gender')
+
+#Part A ex. 6
+print('Males amount: {0}, Females amount: {1}'.format(bin_gender_df['gender_male'].sum(), bin_gender_df['gender_female'].sum()))
+
+#Part A ex. 7
+students_data_df = students_data_df.rename(columns={"race/ethnicity": "ethnicity"})
+print(students_data_df)
+
+#Part A ex. 8
+#a function that returns the last chat of a string
+def get_last_char(string):
+    string = string[-1]
+    return string
+
+#todo: still doesn't work
+students_data_df['ethnicity'].apply(lambda x: get_last_char(x))
+print(students_data_df)
 
 # Part B - Query 1
 
@@ -51,7 +81,7 @@ print(students_data_df[column_names].head())
 
 completed_stud = students_data_df[students_data_df['test preparation course'] == 'completed']
 print(completed_stud.head())
-max_val = completed_stud.groupby('race/ethnicity').count()
+max_val = completed_stud.groupby('ethnicity').count()
 print("completed_stud type ", type(completed_stud))
 print(max_val.nlargest(1, 'gender'))
 
