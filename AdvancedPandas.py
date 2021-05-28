@@ -11,6 +11,8 @@ except:
     students_data_df = []  # In case the file is not read
 
 # Part A ex. 1
+print("There are", students_data_df.shape[0], "rows and", students_data_df.shape[1], "columns in this file.")
+print("Columns names are: ", list(students_data_df.columns))
 print(students_data_df.describe())
 
 # Part A ex. 2
@@ -72,21 +74,23 @@ reduce_average_and_std_from_score(column_names)
 print(students_data_df[column_names].head())
 
 # Part B - Query 2
-
-# max_val_df = students_data_df[students_data_df['test preparation course'] == 'completed'].groupby('race/ethnicity').value_counts()
-# print(max_val_df)
-# max_group = max_val_df['race/ethnicity'].where[max_val_df['gender'] == max_val_df['gender'].max()]
-# print("The group with the most students that finish the pre-course", max_val_df['race/ethnicity'].where(max_val_df == max_val_df['gender'].max()))
-
-
 completed_stud = students_data_df[students_data_df['test preparation course'] == 'completed']
-print(completed_stud.head())
-max_val = completed_stud.groupby('ethnicity').count()
-print("completed_stud type ", type(completed_stud))
-print(max_val.nlargest(1, 'gender'))
-
+group = completed_stud['ethnicity'].value_counts().head(1)
+print("The group with the most students that finish pre-course:", group.index.values.tolist()[0])
 
 # Part B - Query 3
+average_group = students_data_df.groupby('ethnicity').mean()['math score']
+print(average_group)
+average_group.plot(kind="bar", color='b')
+plt.grid()
+plt.ylabel('Average number')
+plt.title("Average math score per each group")
+plt.show()
+
+
+# Part B - Query 5
+average_gender = students_data_df.groupby('gender').mean()
+print(average_gender)
 
 
 # Part C Q1
@@ -102,9 +106,33 @@ lst1 = [2, 4, 6]
 lst2 = [1, 2, 3]
 print(distance(lst1, lst2))
 
-# Part C question 2  > not completed
-items = ['A','B','C','D','E']
-df = pd.DataFrame( columns = ['id', 'item'], index=range(10))
-df['id'] = range(10)
-df = df['item'].apply(lambda x: random.choice(items))
-print(df)
+# Part C question 2
+items = ['A', 'B', 'C', 'D', 'E']
+df = pd.DataFrame(columns=['id', 'item'])
+df['id'] = random.sample(range(0, 100), 100)
+df['item'] = df['item'].apply(lambda x: random.choice(items))
+
+print(df.head())
+
+item_count = df['item'].value_counts()
+print(item_count)
+print("Do we have all the groups in the data frame? ", set(item_count.index.values) == set(items))
+
+# Part C question 3
+groups_df = pd.get_dummies(df, columns=["item"])
+print(groups_df.head())  # TODO: check if need to remove the print
+
+# Part C question 4 - adding new column fo distance
+groups_df["distance"] = groups_df.values.tolist()
+groups_df["distance"] = groups_df["distance"].apply(lambda row: distance([0,1,0,0,0],row[1:6]))
+
+print(groups_df.head())
+
+# TODO: not sure this is what we need  (from here till the end)
+# Part C question 5
+print(groups_df.groupby("distance"))
+
+
+groups_df.groupby("distance").min()
+# Part C question 6
+
