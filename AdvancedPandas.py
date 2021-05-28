@@ -11,6 +11,8 @@ except:
     students_data_df = []  # In case the file is not read
 
 # Part A ex. 1
+print("There are", students_data_df.shape[0], "rows and", students_data_df.shape[1], "columns in this file.")
+print("Columns names are: ", list(students_data_df.columns))
 print(students_data_df.describe())
 
 # Part A ex. 2
@@ -77,7 +79,7 @@ group = completed_stud['ethnicity'].value_counts().head(1)
 print("The group with the most students that finish pre-course:", group.index.values.tolist()[0])
 
 # Part B - Query 3
-average_group = students_data_df.groupby('race/ethnicity').mean()['math score']
+average_group = students_data_df.groupby('ethnicity').mean()['math score']
 print(average_group)
 average_group.plot(kind="bar", color='b')
 plt.grid()
@@ -126,11 +128,11 @@ groups_df["distance"] = groups_df["distance"].apply(lambda row: distance([0,1,0,
 
 print(groups_df.head())
 
+# TODO: not sure this is what we need  (from here till the end)
 # Part C question 5
-groups_df.groupby("distance")
+print(groups_df.groupby("distance"))
 
 
-groups_df.groupby("new column").min()
+groups_df.groupby("distance").min()
 # Part C question 6
-
 
