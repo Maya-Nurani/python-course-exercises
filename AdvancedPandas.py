@@ -34,26 +34,41 @@ if not (students_data_df.isnull().values.any()):
 else:
     print(students_data_df.isnull().sum() > 0)
 
-#Part A ex. 5
+# Part A ex. 5
 #TODO: check if we should rewrite the main dataframe instead of creating a new one
 bin_gender_df = pd.get_dummies(students_data_df['gender'], prefix='gender')
 
-#Part A ex. 6
+# Part A ex. 6
 print('Males amount: {0}, Females amount: {1}'.format(bin_gender_df['gender_male'].sum(), bin_gender_df['gender_female'].sum()))
 
-#Part A ex. 7
+# Part A ex. 7
 students_data_df = students_data_df.rename(columns={"race/ethnicity": "ethnicity"})
-print(students_data_df)
 
-#Part A ex. 8
-#a function that returns the last chat of a string
+# Part A ex. 8
+# a function that returns the last chat of a string
 def get_last_char(string):
     string = string[-1]
     return string
 
-#todo: still doesn't work
-students_data_df['ethnicity'].apply(lambda x: get_last_char(x))
-print(students_data_df)
+# Part A ex. 9
+students_data_df['ethnicity'] = students_data_df['ethnicity'].apply(lambda x: get_last_char(x))
+
+# Part A ex. 10
+students_data_df["test preparation course"] = students_data_df["test preparation course"].replace\
+    ({'completed':1, 'none':0})
+
+# Part A ex. 11 makes 'lunch' binaric - standart = 0, free/reduced = 1
+students_data_df["lunch"] = pd.get_dummies(students_data_df['lunch'], prefix='lunch')
+
+# Part A ex. 12
+students_data_df["parental level of education"] = students_data_df["parental level of education"].replace(to_replace={"master's degree", "bachelor's degree", "some college"}, value="higher education", regex=True)
+students_data_df["parental level of education"] = students_data_df["parental level of education"].replace(to_replace={"associate's degree"}, value="degree", regex=True)
+students_data_df["parental level of education"] = students_data_df["parental level of education"].replace(to_replace={"some high school"}, value="high school", regex=True)
+
+# Part A ex. 13
+ethnicity_dict = {"A":1, "B":2, "C":3, "D":4, "E":5}
+students_data_df["ethnicity"] = students_data_df["ethnicity"].map(ethnicity_dict)
+
 
 # Part B - Query 1
 
@@ -74,7 +89,7 @@ reduce_average_and_std_from_score(column_names)
 print(students_data_df[column_names].head())
 
 # Part B - Query 2
-completed_stud = students_data_df[students_data_df['test preparation course'] == 'completed']
+completed_stud = students_data_df[students_data_df['test preparation course'] == 1]
 group = completed_stud['ethnicity'].value_counts().head(1)
 print("The group with the most students that finish pre-course:", group.index.values.tolist()[0])
 
