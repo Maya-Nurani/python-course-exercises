@@ -74,8 +74,6 @@ students_data_df["ethnicity"] = students_data_df["ethnicity"].map(ethnicity_dict
 
 
 # Part B - Query 1
-
-
 def reduce_average_and_std_from_score(columns):
     for col in columns:
         m = students_data_df[col].mean()
@@ -98,7 +96,7 @@ print("The group with the most students that finish pre-course:", group.index.va
 
 # Part B - Query 3
 average_group = students_data_df.groupby('ethnicity').mean()['math score']
-print(average_group)
+print(average_group) # TODO: remove print because having diagram
 average_group.plot(kind="bar", color='b')
 plt.grid()
 plt.ylabel('Average number')
@@ -107,7 +105,7 @@ plt.show()
 
 # Part B - Query 5
 average_gender = students_data_df.groupby(['gender_male', 'gender_female']).mean()
-print(average_gender)
+print(average_gender)  # TODO: need to finish, create 2 Pie, one for women one for men
 
 
 # Part C Q1
