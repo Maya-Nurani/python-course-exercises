@@ -75,11 +75,14 @@ students_data_df["ethnicity"] = students_data_df["ethnicity"].map(ethnicity_dict
 
 
 # Part B ex. 1
+# a new dataframe that will include the normalized grades (in order to keep the old dataframe for next graphs)
+normalized_grades = students_data_df[["math score", "reading score", "writing score"]].copy()
+
 def reduce_average_and_std_from_score(columns):
     for col in columns:
         m = students_data_df[col].mean()
         s = students_data_df[col].std()
-        students_data_df[col] = (students_data_df[col] - m) / s
+        normalized_grades[col] = (students_data_df[col] - m) / s
 
 
 column_names = ["math score", "reading score", "writing score"]
@@ -99,19 +102,25 @@ plt.title("Average math score per each group")
 plt.show()
 
 # Part B ex. 4
-new_df = students_data_df[["math score", "reading score", "writing score"]].copy()
-new_df.hist()
+normalized_grades.hist()
 plt.show()
-# the graph shows us the distribution of the grades at each subject (grade/amount of students that have it)
+# the graph shows us the distribution of the normalized grades at each subject (grade/amount of students that have it)
 
 # Part B ex. 5
 df_female_grades = students_data_df.where(students_data_df['gender_female']==1)[["math score", "reading score", "writing score"]]
 df_female_grades = df_female_grades.dropna() #removing NaN values (male values)
+df_female_grades = df_female_grades.mean()
 df_male_grades = students_data_df.where(students_data_df['gender_female']==0)[["math score", "reading score", "writing score"]]
 df_male_grades = df_male_grades.dropna() #removing NaN values (female values)
-print(df_female_grades)
-print(df_male_grades)
-# TODO: need to finish, pie graph cannot have negative values
+df_male_grades = df_male_grades.mean()
+df_female_grades.plot(kind="pie", subplots=True)
+plt.title("Female grades average")
+plt.ylabel("")
+plt.show()
+df_male_grades.plot(kind="pie", subplots=True)
+plt.title("Male grades average")
+plt.ylabel("")
+plt.show()
 
 # Part C ex. 1
 
