@@ -33,9 +33,7 @@ if not (students_data_df.isnull().values.any()):
     print('There is no empty values in this dataframe')
 else:
     null_columns = students_data_df.isnull().sum()
-    print("columns with null values", null_columns[null_columns > 0])
-
-    print(students_data_df.isnull().sum() > 0)  # TODO: answer from lalyy
+    print("columns with null values are:\n", null_columns[null_columns > 0])
 
 # Part A ex. 5
 students_data_df = pd.get_dummies(students_data_df, columns=['gender'])
@@ -147,9 +145,11 @@ groups_df["distance"] = groups_df["distance"].apply(lambda row: distance([0, 1, 
 
 print(groups_df.head())
 
-# TODO: not sure this is what we need  (from here till the end)
 # Part C question 5
-print(groups_df.groupby("distance"))
+group_by_distance = groups_df.groupby('distance')
+# Those rows values are the same like this list [0, 1, 0, 0, 0]
+print(group_by_distance.get_group(0))
 
-groups_df.groupby("distance").min()
 # Part C question 6
+if (groups_df["distance"].max() != 0):
+    print(groups_df["distance"].max())
