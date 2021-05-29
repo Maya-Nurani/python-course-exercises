@@ -10,7 +10,7 @@ except:
     print("Failed to read the file")
     students_data_df = []  # In case the file is not read
 
-# Part A ex. 1
+ # Part A ex. 1
 print("There are", students_data_df.shape[0], "rows and", students_data_df.shape[1], "columns in this file.")
 print("Columns names are: ", list(students_data_df.columns))
 print(students_data_df.describe())
@@ -38,12 +38,10 @@ else:
     print(students_data_df.isnull().sum() > 0)  # TODO: answer from lalyy
 
 # Part A ex. 5
-# TODO: check if we should rewrite the main dataframe instead of creating a new one
-bin_gender_df = pd.get_dummies(students_data_df['gender'], prefix='gender')
+students_data_df = pd.get_dummies(students_data_df, columns=['gender'])
 
 # Part A ex. 6
-print('Males amount: {0}, Females amount: {1}'.format(bin_gender_df['gender_male'].sum(),
-                                                      bin_gender_df['gender_female'].sum()))
+print('Males amount: {0}, Females amount: {1}'.format(students_data_df['gender_male'].sum(), students_data_df['gender_female'].sum()))
 
 # Part A ex. 7
 students_data_df = students_data_df.rename(columns={"race/ethnicity": "ethnicity"})
@@ -110,7 +108,7 @@ plt.title("Average math score per each group")
 plt.show()
 
 # Part B - Query 5
-average_gender = students_data_df.groupby('gender').mean()
+average_gender = students_data_df.groupby(['gender_male', 'gender_female']).mean()
 print(average_gender)
 
 
