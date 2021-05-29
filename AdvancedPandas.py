@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 
-# not necessary
+# Reading file content to data frame
 try:
     students_data_df = pd.read_csv('students.csv')
 except:
@@ -23,29 +23,33 @@ plt.show()
 
 # Part A ex. 3
 total_students = int(len(students_data_df.axes[0]))
-print (total_students)
-print('the percent of highschol studends is: {0}'.format(students_data_df.groupby('parental level of education').count()['gender']['high school']/total_students))
+print(total_students)  # TODO: need to remove or not?
+print('the percent of highschol studends is: {0}'.format(
+    students_data_df.groupby('parental level of education').count()['gender']['high school'] / total_students))
 
 # Part A ex. 4
 # The function 'isnull' checks if theres an empty or NaN value in the given dataframe
 if not (students_data_df.isnull().values.any()):
     print('There is no empty values in this dataframe')
-
 else:
-    print(students_data_df.isnull().sum() > 0)
+    null_columns = students_data_df.isnull().sum()
+    print("columns with null values", null_columns[null_columns > 0])
+
+    print(students_data_df.isnull().sum() > 0)  # TODO: answer from lalyy
 
 # Part A ex. 5
-#TODO: check if we should rewrite the main dataframe instead of creating a new one
+# TODO: check if we should rewrite the main dataframe instead of creating a new one
 bin_gender_df = pd.get_dummies(students_data_df['gender'], prefix='gender')
 
 # Part A ex. 6
-print('Males amount: {0}, Females amount: {1}'.format(bin_gender_df['gender_male'].sum(), bin_gender_df['gender_female'].sum()))
+print('Males amount: {0}, Females amount: {1}'.format(bin_gender_df['gender_male'].sum(),
+                                                      bin_gender_df['gender_female'].sum()))
 
 # Part A ex. 7
 students_data_df = students_data_df.rename(columns={"race/ethnicity": "ethnicity"})
 
 # Part A ex. 8
-# a function that returns the last chat of a string
+# a function that returns the last chart of a string
 def get_last_char(string):
     string = string[-1]
     return string
@@ -54,19 +58,22 @@ def get_last_char(string):
 students_data_df['ethnicity'] = students_data_df['ethnicity'].apply(lambda x: get_last_char(x))
 
 # Part A ex. 10
-students_data_df["test preparation course"] = students_data_df["test preparation course"].replace\
-    ({'completed':1, 'none':0})
+students_data_df["test preparation course"] = students_data_df["test preparation course"].replace \
+    ({'completed': 1, 'none': 0})
 
 # Part A ex. 11 makes 'lunch' binaric - standart = 0, free/reduced = 1
 students_data_df["lunch"] = pd.get_dummies(students_data_df['lunch'], prefix='lunch')
 
 # Part A ex. 12
-students_data_df["parental level of education"] = students_data_df["parental level of education"].replace(to_replace={"master's degree", "bachelor's degree", "some college"}, value="higher education", regex=True)
-students_data_df["parental level of education"] = students_data_df["parental level of education"].replace(to_replace={"associate's degree"}, value="degree", regex=True)
-students_data_df["parental level of education"] = students_data_df["parental level of education"].replace(to_replace={"some high school"}, value="high school", regex=True)
+students_data_df["parental level of education"] = students_data_df["parental level of education"].replace(
+    to_replace={"master's degree", "bachelor's degree", "some college"}, value="higher education", regex=True)
+students_data_df["parental level of education"] = students_data_df["parental level of education"].replace(
+    to_replace={"associate's degree"}, value="degree", regex=True)
+students_data_df["parental level of education"] = students_data_df["parental level of education"].replace(
+    to_replace={"some high school"}, value="high school", regex=True)
 
 # Part A ex. 13
-ethnicity_dict = {"A":1, "B":2, "C":3, "D":4, "E":5}
+ethnicity_dict = {"A": 1, "B": 2, "C": 3, "D": 4, "E": 5}
 students_data_df["ethnicity"] = students_data_df["ethnicity"].map(ethnicity_dict)
 
 
@@ -101,7 +108,6 @@ plt.grid()
 plt.ylabel('Average number')
 plt.title("Average math score per each group")
 plt.show()
-
 
 # Part B - Query 5
 average_gender = students_data_df.groupby('gender').mean()
@@ -139,7 +145,7 @@ print(groups_df.head())  # TODO: check if need to remove the print
 
 # Part C question 4 - adding new column fo distance
 groups_df["distance"] = groups_df.values.tolist()
-groups_df["distance"] = groups_df["distance"].apply(lambda row: distance([0,1,0,0,0],row[1:6]))
+groups_df["distance"] = groups_df["distance"].apply(lambda row: distance([0, 1, 0, 0, 0], row[1:6]))
 
 print(groups_df.head())
 
@@ -147,7 +153,5 @@ print(groups_df.head())
 # Part C question 5
 print(groups_df.groupby("distance"))
 
-
 groups_df.groupby("distance").min()
 # Part C question 6
-
