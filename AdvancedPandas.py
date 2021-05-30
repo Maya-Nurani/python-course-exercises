@@ -3,6 +3,9 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 
+# Student 1 - Laly Datsyuk
+# Student 2 - Maya Nurani
+
 # Reading file content to data frame
 try:
     students_data_df = pd.read_csv('students.csv')
@@ -158,6 +161,10 @@ group_by_distance = groups_df.groupby('distance')
 print(group_by_distance.get_group(0))
 
 # Part C ex. 6
-#TODO: maya - explain why this is the result (appears at the question)
+# Explanation: if the row content list is not the same as this list [0, 1, 0, 0, 0], then all the other rows will have the same distance from this list.
+# Because it doesn't meter where the number 1 is placed on the list, when it calculating in the distance format it will be the same result
+# (The formula based on sum of a few numbers, we can switch the location of each number in when sumerized them - and get always the same result).
 if (groups_df["distance"].max() != 0):
     print(groups_df["distance"].max())
+
+
