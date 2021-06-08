@@ -6,7 +6,7 @@ import pandas as pd
 # Part A ex. 1 - Reading file content to data frame
 try:
     sympthoms_df = pd.read_csv('diabetes_sympthoms.csv')
-except:
+except FileNotFoundError:
     print("Failed to read the file")
     sympthoms_df = []  # In case the file is not read
 
