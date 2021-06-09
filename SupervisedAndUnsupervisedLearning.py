@@ -19,4 +19,14 @@ print("There are", sympthoms_df.shape[0], "rows and", sympthoms_df.shape[1], "co
 print("Columns names are: ", list(sympthoms_df.columns))
 print(sympthoms_df.describe())
 
+# Part A ex. 3
+print("The highest blood pressure within men is",
+      sympthoms_df.where(sympthoms_df["Pregnancies"] == 0)["BloodPressure"].max())
 
+# Part A ex. 4
+avgWomen = sympthoms_df.where(sympthoms_df["Pregnancies"] > 0)["SkinThickness"].mean()
+avgMen = sympthoms_df.where(sympthoms_df["Pregnancies"] == 0)["SkinThickness"].mean()
+if avgWomen > avgMen:
+    print("Women's average skin thickness is the highest")
+else:
+    print("Men's average skin thickness is the highest")
