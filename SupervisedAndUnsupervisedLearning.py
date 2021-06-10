@@ -30,3 +30,18 @@ if avgWomen > avgMen:
     print("Women's average skin thickness is the highest")
 else:
     print("Men's average skin thickness is the highest")
+
+# Part C ex. 1
+diabetic = sympthoms_df.where(sympthoms_df["Outcome"] == 1)['Outcome'].count()
+print("Percent of diabetic patients:",diabetic/sympthoms_df.shape[0])
+
+# Part C ex. 2
+def split_train_test(percent):
+    train = sympthoms_df.iloc[:int(percent*sympthoms_df.shape[0])]
+    test = sympthoms_df.iloc[int(percent*sympthoms_df.shape[0]):]
+    return train, test
+
+
+# Part C ex. 3
+train_df, test_df = split_train_test(0.75)
+print(train_df, test_df)
