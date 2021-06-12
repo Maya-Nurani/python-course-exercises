@@ -1,5 +1,6 @@
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
+from sklearn.cluster import KMeans
 
 # Student 1 - Laly Datsyuk
 # Student 2 - Maya Nurani
@@ -46,7 +47,11 @@ print(sympthoms_df.columns)  # TODO: remove
 
 # Part B ex. 3
 old_sympthoms_df = sympthoms_df.copy()
-print(old_sympthoms_df.head())
 
 scaler = MinMaxScaler()
-normalize_data = sympthoms_df
+normalize_data = pd.DataFrame(scaler.fit_transform(old_sympthoms_df), columns= sympthoms_df.columns)
+
+# Part B ex. 4
+
+
+
