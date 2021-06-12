@@ -84,9 +84,11 @@ accuracy_cm_print()
 # Part C ex. 6
 forest = RandomForestClassifier(n_estimators=50)
 forest.fit(x_train, y_train)
+
+# Part C ex. 7
 y_predict = forest.predict(x_test)
 accuracy_cm_print()
 
-# Part C ex. 7
+# Part C ex. 8
 #TODO: finish
 print("The most important value is")
