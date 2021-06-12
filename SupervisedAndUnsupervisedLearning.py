@@ -1,4 +1,5 @@
 import pandas as pd
+from sklearn.preprocessing import MinMaxScaler
 
 # Student 1 - Laly Datsyuk
 # Student 2 - Maya Nurani
@@ -30,3 +31,22 @@ if avgWomen > avgMen:
     print("Women's average skin thickness is the highest")
 else:
     print("Men's average skin thickness is the highest")
+
+# Part B ex. 1
+if (sympthoms_df.isnull().values.any()):
+    mean_columns = list(sympthoms_df.describe().columns)
+    for col in mean_columns:  # Adding mean value only for numeric columns
+        sympthoms_df.loc[sympthoms_df[col].isna(), col] = sympthoms_df[col].mean()
+    else:
+        print('There is no empty values in this dataframe')
+
+# Part B ex. 2 one hot vector
+sympthoms_df = pd.get_dummies(sympthoms_df)
+print(sympthoms_df.columns)  # TODO: remove
+
+# Part B ex. 3
+old_sympthoms_df = sympthoms_df.copy()
+print(old_sympthoms_df.head())
+
+scaler = MinMaxScaler()
+normalize_data = sympthoms_df
