@@ -1,4 +1,15 @@
 import pandas as pd
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split
+from sklearn import linear_model
+from sklearn import preprocessing
+from sklearn.feature_selection import RFE
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.tree import DecisionTreeClassifier
+import sklearn.metrics as metrics
+from sklearn.utils import shuffle
+from sklearn.preprocessing import LabelEncoder
+from sklearn.model_selection import train_test_split
 
 # Student 1 - Laly Datsyuk
 # Student 2 - Maya Nurani
@@ -30,3 +41,52 @@ if avgWomen > avgMen:
     print("Women's average skin thickness is the highest")
 else:
     print("Men's average skin thickness is the highest")
+
+# Part C ex. 1
+diabetic = sympthoms_df.where(sympthoms_df["Outcome"] == 1)['Outcome'].count()
+print("Percent of diabetic patients:",diabetic/sympthoms_df.shape[0])
+
+# Part C ex. 2
+def split_train_test(percent):
+    sympthoms_df_shuffled = shuffle(sympthoms_df)
+    x = sympthoms_df_shuffled.drop(columns=["Outcome"])
+    y = sympthoms_df_shuffled["Outcome"]
+    x_tr = x.iloc[:int(percent * x.shape[0])]
+    y_tr = y.iloc[:int(percent * y.shape[0])]
+    x_te = x.iloc[int(percent * x.shape[0]):]
+    y_te = y.iloc[int(percent * y.shape[0]):]
+    return x_tr, x_te, y_tr, y_te
+
+
+# Part C ex. 3 - data preparation for training
+x_train, x_test, y_train, y_test = split_train_test(0.75)
+
+# Part C ex. 4 - data one hot encoding + training
+x_train = pd.get_dummies(x_train)
+x_test = pd.get_dummies(x_test)
+tree = DecisionTreeClassifier()
+tree.fit(x_train, y_train)
+
+
+# Part C ex. 5 - prediction and accuracy calculation
+def accuracy_cm_print():
+    print("Accuracy:", metrics.accuracy_score(y_test, y_predict))
+    print("Confusion matrix:", metrics.confusion_matrix(y_test, y_predict, labels=[1,0]))
+
+
+y_predict = tree.predict(x_test)
+accuracy_cm_print()
+# from the confusion matrix we can understand how many diabetic people were recognized as diabetic (TP)
+# how many of them weren't recognized (FN), how many non-diabetic were recognized as diabetic (FP)
+# and how many of non-diabetic were recognized as non-diabetic (TN)
+# as it seems, our algorithm didn't recognize 1/3 of the diabetic patients and 1/4 to 1/3 of the non-diabetic patients
+
+# Part C ex. 6
+forest = RandomForestClassifier(n_estimators=50)
+forest.fit(x_train, y_train)
+y_predict = forest.predict(x_test)
+accuracy_cm_print()
+
+# Part C ex. 7
+#TODO: finish
+print("The most important value is")
