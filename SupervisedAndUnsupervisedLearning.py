@@ -53,5 +53,19 @@ normalize_data = pd.DataFrame(scaler.fit_transform(old_sympthoms_df), columns= s
 
 # Part B ex. 4
 
+measures = {
+    "K": range(2,16),
+    "SSE" :[]
+}
+
+def run_kmeans(df):
+    for k in measures["K"]:
+        kmeans = KMeans(n_clusters=k, init="K-means++")
+        kmeans.fit(df)
+        measures["SSE"].append(kmeans.inertia_)
+
+run_kmeans(old_sympthoms_df)
+run_kmeans(normalize_data)
+
 
 
