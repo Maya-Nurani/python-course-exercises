@@ -37,8 +37,8 @@ if (sympthoms_df.isnull().values.any()):
     mean_columns = list(sympthoms_df.describe().columns)
     for col in mean_columns:  # Adding mean value only for numeric columns
         sympthoms_df.loc[sympthoms_df[col].isna(), col] = sympthoms_df[col].mean()
-    else:
-        print('There is no empty values in this dataframe')
+else:
+    print('There is no empty values in this dataframe')
 
 # Part B ex. 2 one hot vector
 sympthoms_df = pd.get_dummies(sympthoms_df)
