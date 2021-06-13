@@ -1,4 +1,5 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
 from sklearn import linear_model
@@ -42,6 +43,23 @@ if avgWomen > avgMen:
 else:
     print("Men's average skin thickness is the highest")
 
+# Part A ex. 5 TODO: check if thats what we are supposed to show here
+women_bp = sympthoms_df.where(sympthoms_df["Pregnancies"] > 0)["BloodPressure"]
+men_bp = sympthoms_df.where(sympthoms_df["Pregnancies"] == 0)["BloodPressure"]
+women_bp.hist()
+men_bp.hist()
+plt.show()
+
+#TODO: Part A ex. 6
+
+# Part A ex. 7
+print("Insulin level average at women that had up to 8 pregnancies is",
+      sympthoms_df.where(sympthoms_df["Pregnancies"] > 8)["Insulin"].mean())
+
+#TODO: Part A ex. 8
+
+#TODO: Part A ex. 9
+
 # Part C ex. 1
 diabetic = sympthoms_df.where(sympthoms_df["Outcome"] == 1)['Outcome'].count()
 print("Percent of diabetic patients:",diabetic/sympthoms_df.shape[0])
@@ -71,7 +89,7 @@ tree.fit(x_train, y_train)
 # Part C ex. 5 - prediction and accuracy calculation
 def accuracy_cm_print():
     print("Accuracy:", metrics.accuracy_score(y_test, y_predict))
-    print("Confusion matrix:", metrics.confusion_matrix(y_test, y_predict, labels=[1,0]))
+    print("Confusion matrix:", metrics.confusion_matrix(y_test, y_predict, labels=[1, 0]))
 
 
 y_predict = tree.predict(x_test)
@@ -89,6 +107,5 @@ forest.fit(x_train, y_train)
 y_predict = forest.predict(x_test)
 accuracy_cm_print()
 
-# Part C ex. 8
-#TODO: finish
-print("The most important value is")
+# Part C ex. 8 TODO: finish
+print("The most important value is pregnancies (gender)")
