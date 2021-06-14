@@ -96,7 +96,7 @@ normalize_data = pd.DataFrame(scaler.fit_transform(old_sympthoms_df), columns=sy
 
 # Part B ex. 4
 
-def run_kmeans(df):
+def run_kmeans(df, type):
     # part B section 4
     measures = {
         "K": range(2, 16),
@@ -119,16 +119,29 @@ def run_kmeans(df):
     print("silhouette_score = ", silhouette_score(df, kmeans.labels_))
 
     # part B section 6
-    df.describe().plot()
-    plt.show()
+    if type == 'normalize':
+
+        df["labels"] = kmeans.labels_
+        groups = normalize_data.groupby("labels")
+        for name, group in groups:
+            plt.scatter(x=group["Glucose"], y=group["BloodPressure"], alpha=0.6, label=name)
+        plt.legend()
+        groups.describe().plot()
+
+        plt.show()
+
+
 
 
 
 print("Part B for the old (origin) data frame")
-run_kmeans(old_sympthoms_df)
+run_kmeans(old_sympthoms_df, type= 'old')
 
 print("Part B for the new (normalize) data frame")
-run_kmeans(normalize_data)
+run_kmeans(normalize_data, 'normalize')
+
+
+
 
 
 
