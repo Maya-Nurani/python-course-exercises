@@ -46,26 +46,35 @@ if avgWomen > avgMen:
 else:
     print("Men's average skin thickness is the highest")
 
-# Part A ex. 5 TODO: check if thats what we are supposed to show here
+# Part A ex. 5
 women_bp = sympthoms_df.where(sympthoms_df["Pregnancies"] > 0)["BloodPressure"]
 men_bp = sympthoms_df.where(sympthoms_df["Pregnancies"] == 0)["BloodPressure"]
 women_bp.hist()
 men_bp.hist()
+plt.title('Blood Pressure distribution by gender')
 plt.show()
 
-# TODO: Part A ex. 6
+# Part A ex. 6
+print("Age group with highest average of glucose in patients is:", sympthoms_df.groupby('AgeCategory').mean()['Glucose'].idxmax())
 
 # Part A ex. 7
 print("Insulin level average at women that had up to 8 pregnancies is",
       sympthoms_df.where(sympthoms_df["Pregnancies"] > 8)["Insulin"].mean())
 
-# TODO: Part A ex. 8
+# Part A ex. 8
+# A graph that shows the average diabetes level by age group. we can see that it's not so different from group to group
+dl_graph = sympthoms_df.groupby('AgeCategory').mean()['DiabetesLevel']
+dl_graph.plot.bar()
+plt.title('Average diabetes level by age group')
+plt.grid()
+plt.show()
 
 # Part A ex. 9
 
 sympthoms_df.plot.scatter(x="Glucose", y="BloodPressure")
+plt.title('Blood Pressure by glucose')
+plt.grid()
 plt.show()
-
 
 # Part B ex. 1
 if (sympthoms_df.isnull().values.any()):
@@ -173,6 +182,10 @@ forest.fit(x_train, y_train)
 y_predict = forest.predict(x_test)
 accuracy_cm_print()
 
-# Part C ex. 8 TODO: finish
-print("The most important value is pregnancies (gender)")
+# Part C ex. 8
+importance_df = pd.DataFrame({'Feature':x_train.columns, 'Importance':forest.feature_importances_})
+importance_df = importance_df.sort_values(by=['Importance'])
+print('Feature importance from the lowest to the highest:', importance_df)
+print('The most important feature is:', importance_df['Feature'].tail(1))
+print('The less important feature is:', importance_df['Feature'].head(1))
 
