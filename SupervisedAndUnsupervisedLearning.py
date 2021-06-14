@@ -1,4 +1,16 @@
 import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split
+from sklearn import linear_model
+from sklearn import preprocessing
+from sklearn.feature_selection import RFE
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.tree import DecisionTreeClassifier
+import sklearn.metrics as metrics
+from sklearn.utils import shuffle
+from sklearn.preprocessing import LabelEncoder
+from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.cluster import KMeans
 
@@ -32,6 +44,73 @@ if avgWomen > avgMen:
     print("Women's average skin thickness is the highest")
 else:
     print("Men's average skin thickness is the highest")
+
+# Part A ex. 5 TODO: check if thats what we are supposed to show here
+women_bp = sympthoms_df.where(sympthoms_df["Pregnancies"] > 0)["BloodPressure"]
+men_bp = sympthoms_df.where(sympthoms_df["Pregnancies"] == 0)["BloodPressure"]
+women_bp.hist()
+men_bp.hist()
+plt.show()
+
+#TODO: Part A ex. 6
+
+# Part A ex. 7
+print("Insulin level average at women that had up to 8 pregnancies is",
+      sympthoms_df.where(sympthoms_df["Pregnancies"] > 8)["Insulin"].mean())
+
+#TODO: Part A ex. 8
+
+#TODO: Part A ex. 9
+
+# Part C ex. 1
+diabetic = sympthoms_df.where(sympthoms_df["Outcome"] == 1)['Outcome'].count()
+print("Percent of diabetic patients:",diabetic/sympthoms_df.shape[0])
+
+# Part C ex. 2
+def split_train_test(percent):
+    sympthoms_df_shuffled = shuffle(sympthoms_df)
+    x = sympthoms_df_shuffled.drop(columns=["Outcome"])
+    y = sympthoms_df_shuffled["Outcome"]
+    x_tr = x.iloc[:int(percent * x.shape[0])]
+    y_tr = y.iloc[:int(percent * y.shape[0])]
+    x_te = x.iloc[int(percent * x.shape[0]):]
+    y_te = y.iloc[int(percent * y.shape[0]):]
+    return x_tr, x_te, y_tr, y_te
+
+
+# Part C ex. 3 - data preparation for training
+x_train, x_test, y_train, y_test = split_train_test(0.75)
+
+# Part C ex. 4 - data one hot encoding + training
+x_train = pd.get_dummies(x_train)
+x_test = pd.get_dummies(x_test)
+tree = DecisionTreeClassifier()
+tree.fit(x_train, y_train)
+
+
+# Part C ex. 5 - prediction and accuracy calculation
+def accuracy_cm_print():
+    print("Accuracy:", metrics.accuracy_score(y_test, y_predict))
+    print("Confusion matrix:", metrics.confusion_matrix(y_test, y_predict, labels=[1, 0]))
+
+
+y_predict = tree.predict(x_test)
+accuracy_cm_print()
+# from the confusion matrix we can understand how many diabetic people were recognized as diabetic (TP)
+# how many of them weren't recognized (FN), how many non-diabetic were recognized as diabetic (FP)
+# and how many of non-diabetic were recognized as non-diabetic (TN)
+# as it seems, our algorithm didn't recognize 1/3 of the diabetic patients and 1/4 to 1/3 of the non-diabetic patients
+
+# Part C ex. 6
+forest = RandomForestClassifier(n_estimators=50)
+forest.fit(x_train, y_train)
+
+# Part C ex. 7
+y_predict = forest.predict(x_test)
+accuracy_cm_print()
+
+# Part C ex. 8 TODO: finish
+print("The most important value is pregnancies (gender)")
 
 # Part B ex. 1
 if (sympthoms_df.isnull().values.any()):
