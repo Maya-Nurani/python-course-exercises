@@ -77,7 +77,6 @@ else:
 
 # Part B ex. 2 one hot vector
 sympthoms_df = pd.get_dummies(sympthoms_df)
-print(sympthoms_df.columns)  # TODO: remove
 
 # Part B ex. 3
 old_sympthoms_df = sympthoms_df.copy()
@@ -100,30 +99,32 @@ def run_kmeans(df):
         kmeans.fit(df)
         measures["SSE"].append(kmeans.inertia_)
 
-    print(measures)  # TODO: remove print
-
     measures = pd.DataFrame(measures)
     measures.set_index("K", inplace=True)
 
-    # part B section 5 TODO: select K
+    # part B section 5
+    measures.plot()
+    plt.show()
+    # For old_sympthoms_df, the best K is 5
+    # For normalize_data, the best K is between 2 to 4 (better to take k=4 to reduce overfitting)
     print("silhouette_score = ", silhouette_score(df, kmeans.labels_))
 
     # part B section 6
-    df["cluster"] = kmeans.predict(df)
-    clusters = df.groupby("cluster")
-    print(clusters.get_group(0))
-    # plt.scatter()
-
-    measures.plot()
+    # df["cluster"] = kmeans.predict(df)
+    # clusters = df.groupby("cluster")
+    # for i in measures["K"]:
+    #     plt.scatter(x=clusters.get_group(i)["X"], y=clusters.get_group(i)["Y"], label = f"c{k}")
 
 
 print("Part B for the old (origin) data frame")
 run_kmeans(old_sympthoms_df)
-print(old_sympthoms_df.head())
 
 print("Part B for the new (normalize) data frame")
 run_kmeans(normalize_data)
-print(normalize_data.head())
+
+# part B section 6
+#normalize_data["cluster"] = kmeans.predict(normalize_data)
+# clusters = df.groupby("cluster")
 
 
 # Part C ex. 1
