@@ -13,6 +13,7 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.cluster import KMeans
+from sklearn.metrics import silhouette_score
 
 # Student 1 - Laly Datsyuk
 # Student 2 - Maya Nurani
@@ -52,19 +53,82 @@ women_bp.hist()
 men_bp.hist()
 plt.show()
 
-#TODO: Part A ex. 6
+# TODO: Part A ex. 6
 
 # Part A ex. 7
 print("Insulin level average at women that had up to 8 pregnancies is",
       sympthoms_df.where(sympthoms_df["Pregnancies"] > 8)["Insulin"].mean())
 
-#TODO: Part A ex. 8
+# TODO: Part A ex. 8
 
-#TODO: Part A ex. 9
+# Part A ex. 9
+
+sympthoms_df.plot.scatter(x="Glucose", y="BloodPressure")
+plt.show()
+
+
+# Part B ex. 1
+if (sympthoms_df.isnull().values.any()):
+    mean_columns = list(sympthoms_df.describe().columns)
+    for col in mean_columns:  # Adding mean value only for numeric columns
+        sympthoms_df.loc[sympthoms_df[col].isna(), col] = sympthoms_df[col].mean()
+else:
+    print('There is no empty values in this dataframe')
+
+# Part B ex. 2 one hot vector
+sympthoms_df = pd.get_dummies(sympthoms_df)
+print(sympthoms_df.columns)  # TODO: remove
+
+# Part B ex. 3
+old_sympthoms_df = sympthoms_df.copy()
+
+scaler = MinMaxScaler()
+normalize_data = pd.DataFrame(scaler.fit_transform(old_sympthoms_df), columns=sympthoms_df.columns)
+
+
+# Part B ex. 4
+
+def run_kmeans(df):
+    # part B section 4
+    measures = {
+        "K": range(2, 16),
+        "SSE": []
+    }
+
+    for k in measures["K"]:
+        kmeans = KMeans(n_clusters=k, init="k-means++")
+        kmeans.fit(df)
+        measures["SSE"].append(kmeans.inertia_)
+
+    print(measures)  # TODO: remove print
+
+    measures = pd.DataFrame(measures)
+    measures.set_index("K", inplace=True)
+
+    # part B section 5 TODO: select K
+    print("silhouette_score = ", silhouette_score(df, kmeans.labels_))
+
+    # part B section 6
+    df["cluster"] = kmeans.predict(df)
+    clusters = df.groupby("cluster")
+    print(clusters.get_group(0))
+    # plt.scatter()
+
+    measures.plot()
+
+
+print("Part B for the old (origin) data frame")
+run_kmeans(old_sympthoms_df)
+print(old_sympthoms_df.head())
+
+print("Part B for the new (normalize) data frame")
+run_kmeans(normalize_data)
+print(normalize_data.head())
+
 
 # Part C ex. 1
 diabetic = sympthoms_df.where(sympthoms_df["Outcome"] == 1)['Outcome'].count()
-print("Percent of diabetic patients:",diabetic/sympthoms_df.shape[0])
+print("Percent of diabetic patients:", diabetic / sympthoms_df.shape[0])
 
 # Part C ex. 2
 def split_train_test(percent):
@@ -111,40 +175,4 @@ accuracy_cm_print()
 
 # Part C ex. 8 TODO: finish
 print("The most important value is pregnancies (gender)")
-
-# Part B ex. 1
-if (sympthoms_df.isnull().values.any()):
-    mean_columns = list(sympthoms_df.describe().columns)
-    for col in mean_columns:  # Adding mean value only for numeric columns
-        sympthoms_df.loc[sympthoms_df[col].isna(), col] = sympthoms_df[col].mean()
-else:
-    print('There is no empty values in this dataframe')
-
-# Part B ex. 2 one hot vector
-sympthoms_df = pd.get_dummies(sympthoms_df)
-print(sympthoms_df.columns)  # TODO: remove
-
-# Part B ex. 3
-old_sympthoms_df = sympthoms_df.copy()
-
-scaler = MinMaxScaler()
-normalize_data = pd.DataFrame(scaler.fit_transform(old_sympthoms_df), columns= sympthoms_df.columns)
-
-# Part B ex. 4
-
-measures = {
-    "K": range(2,16),
-    "SSE" :[]
-}
-
-def run_kmeans(df):
-    for k in measures["K"]:
-        kmeans = KMeans(n_clusters=k, init="K-means++")
-        kmeans.fit(df)
-        measures["SSE"].append(kmeans.inertia_)
-
-run_kmeans(old_sympthoms_df)
-run_kmeans(normalize_data)
-
-
 
