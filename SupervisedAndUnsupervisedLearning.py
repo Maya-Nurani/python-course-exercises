@@ -21,7 +21,7 @@ from sklearn.metrics import silhouette_score
 # Part A ex. 1 - Reading file content to data frame
 try:
     sympthoms_df = pd.read_csv('diabetes_sympthoms.csv')
-except FileNotFoundError:
+except:
     print("Failed to read the file")
     sympthoms_df = []  # In case the file is not read
 
@@ -185,4 +185,3 @@ importance_df = importance_df.sort_values(by=['Importance'])
 print('Feature importance from the lowest to the highest:', importance_df)
 print('The most important feature is:', importance_df['Feature'].tail(1))
 print('The less important feature is:', importance_df['Feature'].head(1))
-
