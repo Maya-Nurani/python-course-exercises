@@ -11,6 +11,8 @@ import sklearn.metrics as metrics
 from sklearn.utils import shuffle
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.cluster import KMeans
 
 # Student 1 - Laly Datsyuk
 # Student 2 - Maya Nurani
@@ -109,3 +111,40 @@ accuracy_cm_print()
 
 # Part C ex. 8 TODO: finish
 print("The most important value is pregnancies (gender)")
+
+# Part B ex. 1
+if (sympthoms_df.isnull().values.any()):
+    mean_columns = list(sympthoms_df.describe().columns)
+    for col in mean_columns:  # Adding mean value only for numeric columns
+        sympthoms_df.loc[sympthoms_df[col].isna(), col] = sympthoms_df[col].mean()
+else:
+    print('There is no empty values in this dataframe')
+
+# Part B ex. 2 one hot vector
+sympthoms_df = pd.get_dummies(sympthoms_df)
+print(sympthoms_df.columns)  # TODO: remove
+
+# Part B ex. 3
+old_sympthoms_df = sympthoms_df.copy()
+
+scaler = MinMaxScaler()
+normalize_data = pd.DataFrame(scaler.fit_transform(old_sympthoms_df), columns= sympthoms_df.columns)
+
+# Part B ex. 4
+
+measures = {
+    "K": range(2,16),
+    "SSE" :[]
+}
+
+def run_kmeans(df):
+    for k in measures["K"]:
+        kmeans = KMeans(n_clusters=k, init="K-means++")
+        kmeans.fit(df)
+        measures["SSE"].append(kmeans.inertia_)
+
+run_kmeans(old_sympthoms_df)
+run_kmeans(normalize_data)
+
+
+
