@@ -110,10 +110,9 @@ def run_kmeans(df):
     print("silhouette_score = ", silhouette_score(df, kmeans.labels_))
 
     # part B section 6
-    # df["cluster"] = kmeans.predict(df)
-    # clusters = df.groupby("cluster")
-    # for i in measures["K"]:
-    #     plt.scatter(x=clusters.get_group(i)["X"], y=clusters.get_group(i)["Y"], label = f"c{k}")
+    df.describe().plot()
+    plt.show()
+
 
 
 print("Part B for the old (origin) data frame")
@@ -122,9 +121,6 @@ run_kmeans(old_sympthoms_df)
 print("Part B for the new (normalize) data frame")
 run_kmeans(normalize_data)
 
-# part B section 6
-#normalize_data["cluster"] = kmeans.predict(normalize_data)
-# clusters = df.groupby("cluster")
 
 
 # Part C ex. 1
